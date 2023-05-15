@@ -77,10 +77,12 @@
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-2">API key</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-3">MerchantID</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-3"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>Integration</a></li>
-				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Initialization</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Server side initialization</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">Include JavaScript</a></li>
-				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">Add fields</a></li>
-					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-4">JavaScript events</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">Add hosted fields</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-4">Initialize the hosted fields</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-5">JavaScript events</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-6">Add a payment button</a></li>
 			    </ul>
 
 		    </nav><!--//docs-nav-->
@@ -105,55 +107,286 @@
 							<p>Additionally, hosted fields offer a seamless user experience. By integrating the fields directly into your website, they maintain the same design and visual aesthetics, ensuring a consistent user interface. This approach eliminates the need to redirect customers to an external payment page, reducing friction during the checkout process and enhancing trust.</p>
 							<p>By leveraging hosted fields, you can provide a secure, user-friendly payment experience for your customers while offloading the complexities of payment security and compliance to a trusted payment service provider. This allows you to focus on your core business activities while ensuring that your customers' payment data is handled in a secure and compliant manner.</p>
 							<p>In summary, hosted fields are a valuable feature when integrating a payment service solution online. They enable you to securely collect payment information, reduce compliance requirements, maintain a seamless user experience, and entrust the security of sensitive data to a specialized payment service provider.</p>
+							<h2 id="item-1-5">Integration types</h2>
+							<p>Payonic offers 3 types of hosted field integration types.</p>
+							<h3>Individual fields</h3>
+							<p>When using individual fields, the Card number, Expiry month, Expiry year and Security code can be placed individually on the page. An example of the hosted fields option is displayed below:</p>
+							<p><img src="./assets/images/hostedfields/fields.png" /></p>
+							<h3>Payment strip</h3>
+							<p>The payment strip is a single line hosted field, which is utilized in same method as the Hosted Fields. </p>
+							<p><img src="./assets/images/hostedfields/strip.png" /></p>
+							<h3>Token - CIT</h3>
+							<p>The dynamic fields window can also be initialized using an already created token. That means no input fields are generated for the customer to enter the details. Instead the system autenticates the payment using Verified By Visa / Mastercard Secure Code and prompts the customer if a challenge is met and autentication is required to fullfill the payment.</p>
 						</section><!--//docs-intro-->
-						
-						<h5>Github Code Example:</h5>
-						<p>You can <a class="theme-link" href="https://gist.github.com/"  target="_blank">embed your code snippets using Github gists</a></p>
-						<div class="docs-code-block">
-							<!-- ** Embed github code starts ** -->
-							<script src="https://gist.github.com/xriley/fce6cf71edfd2dadc7919eb9c98f3f17.js"></script>
-							<!-- ** Embed github code ends ** -->
-						</div><!--//docs-code-block-->
-						
-					     <h5>Highlight.js Example:</h5>
-						<p>You can <a class="theme-link" href="https://github.com/highlightjs/highlight.js" target="_blank">embed your code snippets using highlight.js</a> It supports <a class="theme-link" href="https://highlightjs.org/static/demo/" target="_blank">185 languages and 89 styles</a>.</p>
-						<p>This template uses <a class="theme-link" href="https://highlightjs.org/static/demo/" target="_blank">Atom One Dark</a> style for the code blocks: <br><code>&#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css&#x22;&#x3E;</code></p>
-						<div class="docs-code-block">
-							<pre class="shadow-lg rounded"><code class="json hljs">[
-							{
-								<span class="hljs-attr">"title"</span>: <span class="hljs-string">"apples"</span>,
-								<span class="hljs-attr">"count"</span>: [<span class="hljs-number">12000</span>, <span class="hljs-number">20000</span>],
-								<span class="hljs-attr">"description"</span>: {<span class="hljs-attr">"text"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-attr">"sensitive"</span>: <span class="hljs-literal">false</span>}
-							},
-							{
-								<span class="hljs-attr">"title"</span>: <span class="hljs-string">"oranges"</span>,
-								<span class="hljs-attr">"count"</span>: [<span class="hljs-number">17500</span>, <span class="hljs-literal">null</span>],
-								<span class="hljs-attr">"description"</span>: {<span class="hljs-attr">"text"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-attr">"sensitive"</span>: <span class="hljs-literal">false</span>}
-							}
-							]
-
-
-							</code></pre>
-						</div><!--//docs-code-block-->
-						
-						
 				    </header>
-				    <section class="docs-section" id="section-2">
+			    </article><!--//docs-article-->
+
+				<article class="docs-article" id="section-2">
+					<section class="docs-sectionx">
 						<h2 class="section-heading">Get started</h2>
 						<h3 id="item-2-1">Payonic account</h3>
-						<p>To get started you will need to get a Payonic account. Click here to get a free test-account to start your integration...</p>
+						<p>To get started you will need to get a Payonic account. Click here to get a free test-account to start your integration</p>
 						
 						<h3 id="item-2-2">API key</h3>
 						<p>You need an API key!</p>
 						
 
 						<h3 id="item-2-3">MerchantID</h3>
-						<p>You need a merchantID!</p>
-						
-					</section><!--//section-->
-					
-					
-			    </article><!--//docs-article-->
+						<p>You need a merchantID</p>
+					</section>
+				</article>
+
+				<article class="docs-article" id="section-3">
+					<section class="docs-section">
+						<h2 class="section-heading">Integration</h2>
+						<h3 id="item-3-1">Server side initialization</h3>
+						<p>The first step is to initialize the payment session using a server-to-server side call. This is to void the client to have the posibillity to manipulate with any data transmitted between merchant and Payonic.</p>
+						<p>Below is an example of the JSON data, which needs to be transmitted to Payonic to initialize the payment session.</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">250</span>,
+	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+	<span class="hljs-attr">"reference"</span>: <span class="hljs-string">"order-12345"</span>,
+	<span class="hljs-attr">"idpan"</span>: <span class="hljs-string">"containerpan"</span>,
+	<span class="hljs-attr">"idexpmonth"</span>: <span class="hljs-string">"containerexpmonth"</span>,
+	<span class="hljs-attr">"idexpyear"</span>: <span class="hljs-string">"containerexpyear"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">merchantid</a></th>
+									    <td>This is the unique identifier of the merchant to accept the payment.</td>
+									</tr>
+									<tr>
+									      <th class="theme-bg-light"><a class="theme-link" href="#">amount</a></th>
+									      <td>This is the amount of the payment. The amount must be defined in minor units. E.g. 2,50 DKK must be set as 250.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">currency</a></th>
+									    <td>The currency code of the payment. For Danish Kroner defined as DKK.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">reference</a></th>
+									    <td>This is the order reference.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idpan</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the PAN hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpmonth</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the expiry month hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpyear</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the expiry year hosted field.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>As response the following JSON is returned:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
+	<span class="hljs-attr">"accepturl"</span>: <span class="hljs-string">""</span>,
+	<span class="hljs-attr">"cancelurl"</span>: <span class="hljs-string">""</span>,
+	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">""</span>,
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">10</span>,
+	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+	<span class="hljs-attr">"reference"</span>: <span class="hljs-string">"order-12345"</span>,
+	<span class="hljs-attr">"idpan"</span>: <span class="hljs-string">"containerpan"</span>,
+	<span class="hljs-attr">"idexpmonth"</span>: <span class="hljs-string">"containerexpmonth"</span>,
+	<span class="hljs-attr">"idexpyear"</span>: <span class="hljs-string">"containerexpyear"</span>,
+	<span class="hljs-attr">"idsecuritycode"</span>: <span class="hljs-string">"containersecuritycode"</span>,
+	<span class="hljs-attr">"dfurlpan"</span>: <span class="hljs-string">"https://api.test.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/pan"</span>,
+	<span class="hljs-attr">"dfurlexpyear"</span>: <span class="hljs-string">"https://api.test.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/expyear"</span>,
+	<span class="hljs-attr">"dfurlexpmonth"</span>: <span class="hljs-string">"https://api.test.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/expmonth"</span>,
+	<span class="hljs-attr">"dfurlsecuritycode"</span>: <span class="hljs-string">"https://api.test.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/securitycode"</span>,
+	<span class="hljs-attr">"dfurlccsingle"</span>: <span class="hljs-string">"https://api.test.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/ccsingle"</span>,
+	<span class="hljs-attr">"dfurlscriptinclude"</span>: <span class="hljs-string">"https://api.test.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/dynamic.js"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">merchantid</a></th>
+									    <td>This is the unique identifier of the merchant to accept the payment.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">sessionid</a></th>
+									    <td>The sessionid.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">accepturl</a></th>
+									    <td>The accepturl.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">cancelurl</a></th>
+									    <td>The cancelurl.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">notificationurl</a></th>
+									    <td>The notificationurl.</td>
+									</tr>
+									<tr>
+									      <th class="theme-bg-light"><a class="theme-link" href="#">amount</a></th>
+									      <td>This is the amount of the payment. The amount must be defined in minor units. E.g. 2,50 DKK must be set as 250.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">currency</a></th>
+									    <td>The currency code of the payment. For Danish Kroner defined as DKK.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">reference</a></th>
+									    <td>This is the order reference.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idpan</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the PAN hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpmonth</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the expiry month hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpyear</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the expiry year hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idsecuritycode</a></th>
+									    <td>Field for the security code.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlpan</a></th>
+									    <td>The url for the PAN hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlexpmonth</a></th>
+									    <td>The url for the expmonth hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlexpyear</a></th>
+									    <td>The url for the expyear hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlsecuritycode</a></th>
+									    <td>The url for the securitycode hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlsingle</a></th>
+									    <td>The url for single payment strip field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlscriptinclude</a></th>
+									    <td>The url to include the dynamic fields JavaScript.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h4>HTTP Method & End point</h4>
+						<p>The HTTP method of the client request must be <b>POST</b>.</p>
+						<p>The end-point of the API call is: <b>https://api.test.payonic.com/api/initdynamic</b></p>
+						<h4>Authorization header</h4>
+						<p>For Payonic to validate the client and authorization header must be added to the request.</p>
+						<p>The HTTP header must be named <b>x-api-key</b> and the value must be set to the one found from within the Payonic back office.</p>
+
+						<h3 id="item-3-2">Include JavaScript</h3>
+						<p>When the payment session is initialized on the server-side the dynamic fields JavaScript must be included on the client side. This is done by selecting the <b>dfurlscriptinclude</b> from the initialization response.</p>
+						<p>
+							<blockquote>
+								<pre>
+								  	<code>
+	&lt;script src=&quot;{{oresponse->dfurlscriptinclude}}&quot;&gt;&lt;/script&gt;
+								  	</code>
+								</pre>
+							</blockquote>
+						</p>
+
+						<h3 id="item-3-3">Add hosted fields</h3>
+						<p>Add the HTML elements which needs to be filled by the Hosted Fields frames.</p>
+						<p>
+							<blockquote>
+								<pre>
+								  	<code>
+	&lt;div id=&quot;containerpan&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;containerexpmonth&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;containerexpyear&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;containersecuritycode&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;containersingle&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;divDynamicFieldsChallenge&quot;&gt;&lt;/div&gt;
+								  	</code>
+								</pre>
+							</blockquote>
+						</p>
+
+						<h3 id="item-3-4">Initialize the hosted fields</h3>
+						<p>
+							<blockquote>
+								<pre>
+								  	<code>
+	&lt;script&gt;
+		$( document ).ready( function() {
+			var req = {
+				jsinitsuccess: initDynamicSuccess,
+				jspaymentsuccess: paymentSuccess,
+				jspaymentstarted: paymentStarted,
+				jspaymentfailed: paymentFailed,
+			}
+			initDynamic( req );
+		});
+	&lt;/script&gt;
+								  	</code>
+								</pre>
+							</blockquote>
+						</p>
+
+						<h3 id="item-3-5">JavaScript events</h3>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">jsinitsuccess</a></th>
+									    <td>This JavaScript function is called when the hosted fields are initialized by success.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">jspaymentsuccess</a></th>
+									    <td>This JavaScript function is called when the payment is successfull made.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">jspaymentstarted</a></th>
+									    <td>This JavaScript function is called when the payment process has started.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">jspaymentfailed</a></th>
+									    <td>This JavaScript function is called if the payment has failed.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3 id="item-3-6">Add a payment button</h3>
+						<p>Finally a payment button must be added. This button calls the function <b>goPay()</b>, which will start the payment process.</p>
+						<p>
+							<blockquote>
+								<pre>
+								  	<code>
+	&lt;button type=&quot;button&quot; class=&quot;btn btn-primary w-100&quot; onclick=&quot;goPay();&quot;&gt;PAY&lt;/button&gt;
+								  	</code>
+								</pre>
+							</blockquote>
+						</p>
+						<p>As the payment is processing JavaScript events will be notified to the function described in the <b>JavaScript events</b> section</p>
+					</section>
+				</article>
 
 			    <footer class="footer">
 				    <div class="container text-center py-5">
