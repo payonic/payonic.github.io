@@ -21,3 +21,24 @@
 .logo-icon {
     max-height: 50px;
 }
+
+.docs-nav .nav-item.section-title .nav-link {
+    color: rgb(0, 35, 51);
+}
+
+.docs-nav .nav-item.active .nav-link .theme-icon-holder {
+    background: rgb(0, 35, 51);
+}
+
+.docs-nav .nav-item.active .nav-link {
+    color: rgb(0, 35, 51);
+}
+
+.nav {
+    --bs-nav-link-color:  rgb(0, 35, 51);
+    --bs-nav-link-hover-color:rgb(0, 35, 51);
+}
+
+.docs-nav .nav-link.active .theme-icon-holder {
+    background: rgb(0, 35, 51);
+}
