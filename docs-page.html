@@ -83,6 +83,8 @@
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-4">Initialize the hosted fields</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-5">JavaScript events</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-6">Add a payment button</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-4"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>Examples</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-4-1">PHP example</a></li>
 			    </ul>
 
 		    </nav><!--//docs-nav-->
@@ -385,6 +387,155 @@
 							</blockquote>
 						</p>
 						<p>As the payment is processing JavaScript events will be notified to the function described in the <b>JavaScript events</b> section</p>
+					</section>
+				</article>
+
+				<article class="docs-article" id="section-4">
+					<section class="docs-sectionx">
+						<h2 class="section-heading">Examples</h2>
+						<h3 id="item-4-1">PHP example</h3>
+						<p>Below is a full example on how to integrate Payonic Hosted Fields using PHP</p>
+						<blockquote>
+							<pre>
+								<code>
+&lt;?php
+header(&#39;Access-Control-Allow-Origin: *&#39;);
+$merchantid = &quot;4f4e2451482d441ead8e2862369727d0&quot;;
+$apikey = &quot;d8d88580acdc4025a16b7e1ae84045ca&quot;;
+$amount = 10;
+$currency = &quot;DKK&quot;;
+$reference = &quot;payonic-&quot; . rand(1000, 10000);
+$clientwalletaccountemailaddress = &quot;noreply@cardtokens.io&quot;;
+$payonichostedfieldsurl = &quot;https://api.test.payonic.com/api/initdynamic&quot;;
+$ch = curl_init( $payonichostedfieldsurl );
+$payload = json_encode(
+	array( 
+		&quot;merchantid&quot;=&gt; $merchantid, 
+		&quot;amount&quot; =&gt; $amount, 
+		&quot;currency&quot; =&gt; $currency, 
+		&quot;reference&quot; =&gt; $reference, 
+		&quot;clientwalletaccountemailaddress&quot; =&gt; $clientwalletaccountemailaddress, 
+		&quot;accepturl&quot; =&gt; &quot;&quot;, 
+		&quot;cancelurl&quot; =&gt; &quot;&quot;, 
+		&quot;notificationurl&quot; =&gt; &quot;&quot; ,
+		&quot;idpan&quot; =&gt; &quot;containerpan&quot;,
+		&quot;idexpmonth&quot; =&gt; &quot;containerexpmonth&quot;,
+		&quot;idexpyear&quot; =&gt; &quot;containerexpyear&quot;,
+		&quot;idpaybutton&quot; =&gt; &quot;containerpaybutton&quot;,
+	) 
+);
+curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+curl_setopt( $ch, CURLOPT_HTTPHEADER, array(&#39;Content-Type:application/json&#39;, &#39;x-api-key:&#39; . $apikey));
+curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+$result = curl_exec($ch);
+curl_close($ch);
+$jobj = json_decode($result);
+?&gt;
+&lt;html lang=&quot;en-US&quot;&gt;
+	&lt;head&gt;
+		&lt;title&gt;Payonic hosted fields example&lt;/title&gt;
+		&lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css&quot;&gt;
+		&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+		&lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+		&lt;script src=&quot;&lt;?= $jobj-&gt;dfurlscriptinclude ?&gt;&quot;&gt;&lt;/script&gt;
+		&lt;meta charset=&quot;utf-8&quot;&gt;
+		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+		&lt;style&gt;
+			.body {
+				
+			}
+			.jumbotron {
+				background-color: #FFFFFF !important;
+			}
+		&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div class=&quot;jumbotron text-center&quot;&gt;
+			&lt;h1&gt;Payonic Hosted Fields&lt;/h1&gt;
+			&lt;p&gt;Example on how to integrate and initialize using PHP&lt;/p&gt;
+		
+			&lt;section class=&quot;jumbotron text-center&quot; id=&quot;divDynamicFields&quot; style=&quot;display: block;&quot;&gt;
+				&lt;div class=&quot;container&quot;&gt;
+					&lt;div class=&quot;row&quot;&gt;
+						&lt;div class=&quot;col-md-3 text-right&quot; style=&quot;text-align: right;&quot;&gt;&lt;label for=&quot;cardNumber&quot;&gt;Card number&lt;/label&gt;&lt;/div&gt;
+						&lt;div class=&quot;col-md-6&quot; id=&quot;containerpan&quot;&gt;&lt;/div&gt;
+						&lt;div class=&quot;col-md-3 text-right&quot;&gt;&amp;nbsp;&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class=&quot;row&quot;&gt;
+						&lt;div class=&quot;col-md-3 text-right&quot; style=&quot;text-align: right;&quot;&gt;&lt;label for=&quot;cardNumber&quot;&gt;Expire month / year&lt;/label&gt;&lt;/div&gt;
+						&lt;div class=&quot;col-md-3&quot; id=&quot;containerexpmonth&quot;&gt;&lt;/div&gt;
+						&lt;div class=&quot;col-md-3&quot; id=&quot;containerexpyear&quot;&gt;&lt;/div&gt;
+						&lt;div class=&quot;col-md-3 text-right&quot;&gt;&amp;nbsp;&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class=&quot;row&quot;&gt;
+						&lt;div class=&quot;col-md-3 text-right&quot; style=&quot;text-align: right;&quot;&gt;&lt;/div&gt;
+						&lt;div class=&quot;col-md-6&quot;&gt;
+							&lt;button type=&quot;button&quot; class=&quot;btn btn-primary w-100&quot; id=&quot;btnConfirm&quot; onclick=&quot;goPay();&quot; style=&quot;width: 100%&quot;&gt;PAY &lt;?= $currency ?&gt; &lt;?= number_format($amount / 100, 2, &quot;,&quot;, &quot;.&quot;) ?&gt;&lt;/button&gt;
+						&lt;/div&gt;
+						&lt;div class=&quot;col-md-3 text-right&quot;&gt;&amp;nbsp;&lt;/div&gt;
+					&lt;/div&gt;
+					&lt;div class=&quot;row&quot; style=&quot;margin-top: 30px; display: none;&quot; id=&quot;divPaymentFailed&quot;&gt;
+						&lt;div class=&quot;col-md-3 text-right&quot; style=&quot;text-align: right;&quot;&gt;&lt;/div&gt;
+						&lt;div class=&quot;col-md-6&quot;&gt;
+							&lt;label class=&quot;text-danger&quot; id=&quot;divPaymentFailedText&quot;&gt;&lt;/label&gt;
+						&lt;/div&gt;
+						&lt;div class=&quot;col-md-3 text-right&quot;&gt;&amp;nbsp;&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/section&gt;
+			&lt;section class=&quot;jumbotron text-center&quot; id=&quot;divDynamicFieldsChallenge&quot; &gt;&lt;/section&gt;
+
+		&lt;/div&gt;
+
+		&lt;script&gt;
+			$( document ).ready(function() {
+				var req = {
+					jsinitsuccess: initDynamicSuccess,
+					jspaymentsuccess: paymentSuccess,
+					jspaymentstarted: paymentStarted,
+					jspaymentfailed: paymentFailed,
+				}
+
+				initDynamic(req)
+			});
+
+			function initDynamicSuccess(jobj) {
+				$(&quot;#divStartPayment&quot;).hide();
+				$(&quot;#divDynamicFields&quot;).show();
+			}
+
+			function paymentStarted() {
+				$(&quot;#divPaymentFailed&quot;).hide();
+				$(&#39;#btnConfirm&#39;).prop(&#39;disabled&#39;, true);
+			}
+
+			function paymentFailed(failedReason) {
+				$(&quot;#divDynamicFields&quot;).show();
+				$(&quot;#divPaymentFailed&quot;).show();
+				$(&quot;#divPaymentFailedText&quot;).html(failedReason)
+				$(&#39;#btnConfirm&#39;).prop(&#39;disabled&#39;, false);
+			}
+
+			function newPayment() {
+				location.href = &quot;/pay/test/dynamic&quot;;
+			}
+									
+			function paymentSuccess(jobj) {
+				if (jobj.approved) {
+					$(&quot;#divDynamicFieldsChallenge&quot;).hide();
+					var paymentid = jobj.paymentid;
+					var tokenid = jobj.tokenid;
+					alert(&quot;Payment approved with paymentid: &quot; + paymentid + &quot; and tokenid: &quot; + tokenid);
+					location.href = location.href;
+				}
+			}
+		&lt;/script&gt;
+	&lt;/body&gt;
+&lt;/html&gt;									
+								</code>
+							</pre>
+						</blockquote>
+						
 					</section>
 				</article>
 
