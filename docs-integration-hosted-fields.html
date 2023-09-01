@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PAYONIC.COM - flexible payments</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Network scheme Tokenization enables frictionless, card-free payments with benefit your merchants with higher approval rates, lower costs, and increased conversion rates. Cardtokens is a Network Scheme Token aggregator that supports Network Scheme Tokenization through VISA and Mastercard.">
+    <meta name="author" content="Payonic">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet" defer>
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+
+	<!-- Payonic JS-->
+    <script defer src="assets/js/payonic.js"></script>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="./assets/css/atom-one-dark.min.css" defer>
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css" defer>
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+	<link id="payonic-style" rel="stylesheet" href="assets/css/payonic.css">
+
+</head> 
+
+<body class="docs-page">    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon me-2" src="assets/images/payonic-icon.png" alt="logo"><span class="logo-text">PAYONIC.COM</span></a></div>    
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	                
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+						<li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-github fa-fw"></i></a></li>
+			            <li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+		                <li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-slack fa-fw"></i></a></li>
+		                <li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-product-hunt fa-fw"></i></a></li>
+		            </ul><!--//social-list-->
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="docs-wrapper">
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <div class="top-search-box d-lg-none p-3">
+                <form class="search-form">
+		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+		        </form>
+            </div>
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+					<li class="nav-item section-title"><a class="nav-link" href="docs-introduction.html"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>Introduction</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-get-started.html"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-down"></i></span>Get started</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-3"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>Integration</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Server side initialization</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">Include JavaScript</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">Add hosted fields</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-4">Initialize the hosted fields</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-5">JavaScript events</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-6">Add a payment button</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-integration-hosted-fields-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>Hosted Fields examples</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-api.html"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>API</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-api-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>API examples</a></li>
+			    </ul>
+
+		    </nav><!--//docs-nav-->
+	    </div><!--//docs-sidebar-->
+	    <div class="docs-content">
+		    <div class="container">
+			    
+				<article class="docs-article" id="section-3">
+					<section class="docs-section">
+						<h2 class="section-heading">Integration</h2>
+						<h4>Authorization header</h4>
+						<p>For Payonic to validate the client and authorization header must be added to the request.</p>
+						<p>To auhenticate the Payonic API an API-key will be rquired. This API-key can be fetched from within app.payonic.com from the menu "Settings" -> "API-key".</p>
+						<p>The API key is then required in all API requests by setting the API-key header <b>Authorization</b> to the value <b>Basic <i>API-key</i></b>. Below is an example on how to call the API using cURL with the API-key "<b><i>1234567890ABC</i></b>":</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+	<span class="hljs-attr">curl https://api.cit.payonic.com/api/initdynamic -H "Authorization: Basic 1234567890ABC"</span>
+							</code></pre>
+						</div><!--//docs-code-block-->
+
+						<h4>Trace header</h4>
+						<p>To trace each API request a simple header can be added to each individual request. The header is named TraceApi and must be set to an unique value (GUID). When both client and server stores this unique reference quick debugging is enabled. </p>
+						<p>Below is an example of how this header is set using cURL:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+	<span class="hljs-attr">curl https://api.cit.payonic.com/api/initdynamic -H "TraceApi: e018fdfb5bda40e4a7e91759c22922fd"</span>
+							</code></pre>
+						</div><!--//docs-code-block-->
+
+						<h3 id="item-3-1">Server side initialization</h3>
+						<p>The HTTP method of the client request must be <b>POST</b>.</p>
+						<p>The end-point of the API call is: <b>https://api.cit.payonic.com/api/initdynamic</b></p>
+						<p>The first step is to initialize the payment session using a server-to-server side call. This is to void the client to have the posibillity to manipulate with any data transmitted between merchant and Payonic.</p>
+						<p>Below is an example of the JSON data, which needs to be transmitted to Payonic to initialize the payment session.</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">250</span>,
+	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+	<span class="hljs-attr">"reference"</span>: <span class="hljs-string">"order-12345"</span>,
+	<span class="hljs-attr">"idpan"</span>: <span class="hljs-string">"containerpan"</span>,
+	<span class="hljs-attr">"idexpmonth"</span>: <span class="hljs-string">"containerexpmonth"</span>,
+	<span class="hljs-attr">"idexpyear"</span>: <span class="hljs-string">"containerexpyear"</span>,
+	<span class="hljs-attr">"set3ds"</span>: <span class="hljs-string">"full_liability_skip_3ds"</span>,
+	<span class="hljs-attr">"rule"</span>: <span class="hljs-number">1</span>,
+	<span class="hljs-attr">"timeout"</span>: <span class="hljs-number">900</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">merchantid</a></th>
+									    <td>This is the unique identifier of the merchant to accept the payment.</td>
+									</tr>
+									<tr>
+									      <th class="theme-bg-light"><a class="theme-link" href="#">amount</a></th>
+									      <td>
+												This is the amount of the payment. The amount must be defined in minor units. E.g. 2,50 DKK must be set as 250.
+												<br>
+												If amount is set to 0 a token will be created only and returned to the integrator. If fallback to PAN this will be the FPAN instead of the DPAN.
+										  </td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">currency</a></th>
+									    <td>The currency code of the payment. For Danish Kroner defined as DKK.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">reference</a></th>
+									    <td>This is the order reference.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idpan</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the PAN hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpmonth</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the expiry month hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpyear</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the expiry year hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">set3ds</a></th>
+									    <td>
+											How 3D secure is handled:<br>
+											<ul>
+												<li>SKIP_3DS &emsp;&emsp;&emsp; 3DS is not tried and full liability is put at merchant.</li>
+												<li>FORCE_3DS &emsp;&emsp; The full 3D flow is used including challenge.</li>
+												<li>FALLBACK_3DS &emsp; If  challenge is required from issuer try without 3DS - if authorization fails run full challenge flow.</li>
+											</ul>
+											Default value FORCE_3DS
+										</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">rule</a></th>
+									    <td>
+											The authorization rule to use (primary, seconday acquirer / processor).
+											<br>
+											Default value 1
+										</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">timeout</a></th>
+									    <td>
+											The number of seconds the window is valid. When a timeout occurs the window is closed and notification transmitted to the integrator.
+											<br>
+											Default value 900 (15 minutes)
+										</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">paymentid</a></th>
+									    <td>
+											If a CIT payment on behalf of existing stored payment data is used.
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>As response the following JSON is returned:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
+	<span class="hljs-attr">"accepturl"</span>: <span class="hljs-string">""</span>,
+	<span class="hljs-attr">"cancelurl"</span>: <span class="hljs-string">""</span>,
+	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">""</span>,
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">10</span>,
+	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+	<span class="hljs-attr">"reference"</span>: <span class="hljs-string">"order-12345"</span>,
+	<span class="hljs-attr">"idpan"</span>: <span class="hljs-string">"containerpan"</span>,
+	<span class="hljs-attr">"idexpmonth"</span>: <span class="hljs-string">"containerexpmonth"</span>,
+	<span class="hljs-attr">"idexpyear"</span>: <span class="hljs-string">"containerexpyear"</span>,
+	<span class="hljs-attr">"idsecuritycode"</span>: <span class="hljs-string">"containersecuritycode"</span>,
+	<span class="hljs-attr">"dfurlpan"</span>: <span class="hljs-string">"https://api.cit.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/pan"</span>,
+	<span class="hljs-attr">"dfurlexpyear"</span>: <span class="hljs-string">"https://api.cit.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/expyear"</span>,
+	<span class="hljs-attr">"dfurlexpmonth"</span>: <span class="hljs-string">"https://api.cit.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/expmonth"</span>,
+	<span class="hljs-attr">"dfurlsecuritycode"</span>: <span class="hljs-string">"https://api.cit.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/securitycode"</span>,
+	<span class="hljs-attr">"dfurlccsingle"</span>: <span class="hljs-string">"https://api.cit.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/ccsingle"</span>,
+	<span class="hljs-attr">"dfurlscriptinclude"</span>: <span class="hljs-string">"https://api.cit.payonic.com/dynamic/168c4ef2f6d046029d72fd318d844f55/dynamic.js"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">merchantid</a></th>
+									    <td>This is the unique identifier of the merchant to accept the payment.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">sessionid</a></th>
+									    <td>The sessionid.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">accepturl</a></th>
+									    <td>The accepturl.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">cancelurl</a></th>
+									    <td>The cancelurl.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">notificationurl</a></th>
+									    <td>The notificationurl.</td>
+									</tr>
+									<tr>
+									      <th class="theme-bg-light"><a class="theme-link" href="#">amount</a></th>
+									      <td>This is the amount of the payment. The amount must be defined in minor units. E.g. 2,50 DKK must be set as 250.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">currency</a></th>
+									    <td>The currency code of the payment. For Danish Kroner defined as DKK.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">reference</a></th>
+									    <td>This is the order reference.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idpan</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the PAN hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpmonth</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the expiry month hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpyear</a></th>
+									    <td>This is the identifier of the HTML element, which needs to include the expiry year hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">idsecuritycode</a></th>
+									    <td>Field for the security code.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlpan</a></th>
+									    <td>The url for the PAN hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlexpmonth</a></th>
+									    <td>The url for the expmonth hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlexpyear</a></th>
+									    <td>The url for the expyear hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlsecuritycode</a></th>
+									    <td>The url for the securitycode hosted field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlsingle</a></th>
+									    <td>The url for single payment strip field.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlscriptinclude</a></th>
+									    <td>The url to include the dynamic fields JavaScript.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h3 id="item-3-2">Include JavaScript</h3>
+						<p>When the payment session is initialized on the server-side the dynamic fields JavaScript must be included on the client side. This is done by selecting the <b>dfurlscriptinclude</b> from the initialization response.</p>
+						<p>
+							<blockquote>
+								<pre>
+								  	<code>
+	&lt;script src=&quot;{{oresponse->dfurlscriptinclude}}&quot;&gt;&lt;/script&gt;
+								  	</code>
+								</pre>
+							</blockquote>
+						</p>
+
+						<h3 id="item-3-3">Add hosted fields</h3>
+						<p>Add the HTML elements which needs to be filled by the Hosted Fields frames.</p>
+						<p>
+							<blockquote>
+								<pre>
+								  	<code>
+	&lt;div id=&quot;containerpan&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;containerexpmonth&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;containerexpyear&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;containersecuritycode&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;containersingle&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;divDynamicFieldsChallenge&quot;&gt;&lt;/div&gt;
+								  	</code>
+								</pre>
+							</blockquote>
+						</p>
+
+						<h3 id="item-3-4">Initialize the hosted fields</h3>
+						<p>
+							<blockquote>
+								<pre>
+								  	<code>
+	&lt;script&gt;
+		$( document ).ready( function() {
+			var req = {
+				jsinitsuccess: initDynamicSuccess,
+				jspaymentsuccess: paymentSuccess,
+				jspaymentstarted: paymentStarted,
+				jspaymentfailed: paymentFailed,
+			}
+			initDynamic( req );
+		});
+	&lt;/script&gt;
+								  	</code>
+								</pre>
+							</blockquote>
+						</p>
+
+						<h3 id="item-3-5">JavaScript events</h3>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">jsinitsuccess</a></th>
+									    <td>This JavaScript function is called when the hosted fields are initialized by success.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">jspaymentsuccess</a></th>
+									    <td>This JavaScript function is called when the payment is successfull made.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">jspaymentstarted</a></th>
+									    <td>This JavaScript function is called when the payment process has started.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">jspaymentfailed</a></th>
+									    <td>This JavaScript function is called if the payment has failed.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3 id="item-3-6">Add a payment button</h3>
+						<p>Finally a payment button must be added. This button calls the function <b>goPay()</b>, which will start the payment process.</p>
+						<p>
+							<blockquote>
+								<pre>
+								  	<code>
+	&lt;button type=&quot;button&quot; class=&quot;btn btn-primary w-100&quot; onclick=&quot;goPay();&quot;&gt;PAY&lt;/button&gt;
+								  	</code>
+								</pre>
+							</blockquote>
+						</p>
+						<p>As the payment is processing JavaScript events will be notified to the function described in the <b>JavaScript events</b> section</p>
+
+						<h3 id="item-3-7">Notification </h3>
+						<p>When the payment is completed Payonic (success or timed out) notifies using a HTTP POST message to the initiator with successful payment data:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>,
+	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
+	<span class="hljs-attr">"tcardnumber"</span>: <span class="hljs-string">"457123xxxxxx4578"</span>,
+}
+							</code></pre>
+						</div>
+						<p>The notification expects that the receiving system replice by standard HTTP 200 as ok. Otherwise the notification will be retried once every hour up to 24 times.</p>
+
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">sessionid</th>
+										<td>The sessionid</td>
+										<td>GUID</td>
+										<td>^[a-zA-Z0-9]{1,32}$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">paymentid</th>
+										<td>The payment</td>
+										<td>GUID</td>
+										<td>^[a-zA-Z0-9]{1,32}$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">status</th>
+										<td>The status of the payment</td>
+										<td>String</td>
+										<td>^(approved|timeout)$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">processor</th>
+										<td>This is the routing of the payment. The value can be <i>finaro</i>, <i>clearhaus</i> or <i>bambora</i>.</td>
+										<td>String</td>
+										<td>^(finaro|clearhaus|bambora)$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">tcardnumber</th>
+										<td>The truncated cardnumber of the payment.</td>
+										<td>String</td>
+										<td>^\d{6}([x*]{4,})\d{4}$</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</section>
+				</article>
+
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+				        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+				        <!--ul class="social-list list-unstyled pt-4 mb-0">
+						    <li class="list-inline-item"><a href="#"><i class="fab fa-github fa-fw"></i></a></li> 
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-slack fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-product-hunt fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-instagram fa-fw"></i></a></li>
+				        </ul--><!--//social-list-->
+						<p class="text-center text-muted mt-3 mb-3">© Copyright Payonic Aps <span id="footerYear">2023</span>. All Rights Reserved.</p>
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+   
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+</body>
+</html> 
+

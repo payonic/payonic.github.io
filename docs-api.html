@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>PAYONIC.COM - flexible payments</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Network scheme Tokenization enables frictionless, card-free payments with benefit your merchants with higher approval rates, lower costs, and increased conversion rates. Cardtokens is a Network Scheme Token aggregator that supports Network Scheme Tokenization through VISA and Mastercard.">
+    <meta name="author" content="Payonic">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet" defer>
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+
+	<!-- Payonic JS-->
+    <script defer src="assets/js/payonic.js"></script>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="./assets/css/atom-one-dark.min.css" defer>
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css" defer>
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+	<link id="payonic-style" rel="stylesheet" href="assets/css/payonic.css">
+
+	<script>
+		function setDefaultData() {
+			setRow("merchantid", "This is the unique identifier of the merchant to accept the payment.", "GUID", "^[a-zA-Z0-9]{1,32}$");
+			setRow("operationid", "The unique identifier of the operation which will be returned in the notification.", "GUID", "^[a-zA-Z0-9]{1,32}$");
+			setRow("processor", "This is the routing of the payment. The value can be <i>finaro</i>, <i>clearhaus</i> or <i>bambora</i>.", "String", "^(finaro|clearhaus|bambora)$");
+			setRow("note", "An note that can be added to the operation within Payonic.", "String", "^[a-zA-Z0-9- ]{0,128}$");
+			setRow("tags", "Tags that can be added to the payment. Tags are seperated by (space).", "String", "^[a-zA-Z0-9 ]{0,32}$");
+			setRow("responsecode", "The response code from the processor according to ISO 8583.", "Int", "^\d{2,3}$");
+			setRow("authorizationcode", "The authorization code is dynamically generated for each transaction and is a series of numbers. While it's common for authorization codes to be around 6 digits long, the specific format and length can vary depending on the payment system, the card network (like Visa, MasterCard, etc.), and the processor being used.", "Int", "^[0-9]{1,8}$");
+			setRow("status", "Status if the payment was approved or declined.", "String", "^(approved|declined)$");
+			setRow("paymenttype", "This is the type of payment. The value can be <i>straight</i>, <i>incremental</i>, <i>scheduled</i> or <i>unscheduled</i>.", "String", "^(straight|incremental|scheduled|unscheduled)$");
+			setRow("paymentid", "This is the unique identifier of the existing stored payment data used to make the payment.", "GUID", "^[a-zA-Z0-9]{1,32}$");
+			setRow("merchantpaymentid", "The merchant own reference to the existing stored Payonic payment data. If this is used <i>paymentid</i> is ignored.", "GUID", "^[a-zA-Z0-9]{1,32}$");
+			setRow("amount", "The amount of the payment in minor units. E.g. DKK 10,95 becomes 1095.", "int", "^[Z0-9]{1,12}$");
+			setRow("currency", "The currency of the payment according to the ISO 4217 alpha 3 code. E.g. Danish kroner is \DKK\", Euro is \"EUR\" and US Dollar is \"USD\".", "String", "^[Z0-9]{3}$");
+			setRow("reference", "Reference is the order reference assigned to the payment.", "String", "^[a-zA-Z0-9- ]{0,32}$");
+			setRow("balance", "Balance is the current amount rest to capture. E.g. if a payment is authorized with 1000, then the balance is 1000. When the amount is then captured by 500 and voided by 500 the balance id 0.", "Int", "^[Z0-9]{1,12}$");
+			setRow("email", "An e-mail added to the customer.", "String", "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+			setRow("firstname", "The first name of the card holder.", "String", "^[A-Za-z]{1,64}$");
+			setRow("surename", "The last name (surename) of the card holder.", "String", "^[A-Za-z]{1,64}$");
+			setRow("ipaddress", "The ipaddress of the customer.", "String", "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
+			setRow("operationtype", "The type of the operation", "String", "^(authorize|capture|refund|payout|incremental)$")
+			
+		}
+
+		function setRow(name, description,  type, pattern) {
+			var rows = document.querySelectorAll('#' + name);
+			[].forEach.call(rows, function(row) {
+				row.cells[1].innerHTML = description;
+				row.cells[2].innerHTML = type;
+				row.cells[3].innerHTML = pattern;	
+			});
+		}
+	</script>
+
+</head> 
+
+<body class="docs-page" onload="">    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon me-2" src="assets/images/payonic-icon.png" alt="logo"><span class="logo-text">PAYONIC.COM</span></a></div>    
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+	                
+	
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+						<li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-github fa-fw"></i></a></li>
+			            <li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+		                <li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-slack fa-fw"></i></a></li>
+		                <li class="list-inline-item" style="display: none;"><a href="#"><i class="fab fa-product-hunt fa-fw"></i></a></li>
+		            </ul><!--//social-list-->
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="docs-wrapper">
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <div class="top-search-box d-lg-none p-3">
+                <form class="search-form">
+		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+		        </form>
+            </div>
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+					<li class="nav-item section-title"><a class="nav-link" href="docs-introduction.html"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>Introduction</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link" href="docs-get-started.html"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-down"></i></span>Get started</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link" href="./docs-integration-hosted-fields.html"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>Integration</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-integration-hosted-fields-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>Hosted Fields examples</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link scrollto active" href="#section-3"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>API</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Flow</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">Auhentication</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">MIT authorization</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-4">Capture</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-5">Refund</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-6">Payout</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-7">Payment</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-8">Health</a></li>
+					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-api-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>API examples</a></li>
+			    </ul>
+
+		    </nav><!--//docs-nav-->
+	    </div><!--//docs-sidebar-->
+	    <div class="docs-content">
+		    <div class="container">
+			    
+				<article class="docs-article" id="section-3">
+					<section class="docs-section">
+						<h2 class="section-heading">API</h2>
+						<h3 id="item-3-1">Overview</h3>
+						<p>This page describes all the Payonic API's, which are processed strictly from the merchant to Payonic. These API calls does not include envolvement from the cardholder.</p>
+						<p>Communication to the Payonic API is made using REST. <b>REST (Representational State Transfer)</b> is an architectural style and set of principles for designing networked applications. It's commonly used in the context of building web services and APIs. REST is based on a few key principles that emphasize simplicity, scalability, and the use of standard web technologies.</p>
+						<h4>Functions</h4>
+						<p>Below is as list of the functions available for the Payonic API.</p>
+						<ul>
+							<li>MIT authorization. A payment made on behalf of stored payment details (incremental authorization, scheduled payment, unscheduled payment)</li>
+							<li>Void. To cancel an uncaptured payment.</li>
+							<li>Capture. To capture a new created payment.</li>
+							<li>Refund. To make refunds of existing captured payments.</li>
+							<li>Payout. To make payouts to customers. (e.g. gambling).</li>
+							<li>Health. Get healt data from the Payonic API's.</li>
+							<li>Payment. Get details about a payment.</li>
+						</ul>
+						
+						<h3 id="item-3-2">Flow</h3>
+						<p>The Payonic API is designed to process huge amount of payment operations. Therefore, All API flows are processed in the same asynchronously way. This voids lack of performance issues and bottle-necks in the flow. The illustration below shows how data from merchant to Payonic and back again flows.</p>
+						<img src="assets/images/payonic-api-flow.png" style="max-height: 500px;" />
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">#1</a></th>
+									    <td>The merchant initiates an operation by requesting the Paynic API to perform an operation.</td>
+									</tr>
+									<tr>
+									      <th class="theme-bg-light"><a class="theme-link" href="#">#2</a></th>
+									      <td>Payonic replies immidiately to the merchant that the operation has been requested. As return the merchant receives an unique operation identifier (operationid).</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">#3</a></th>
+									    <td>Payonic processes the payment operation by calling the connected processor / acquirer.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">#4</a></th>
+									    <td>When the connected processor / acquirer is completed processing the payment operation the response is returned to Payonic.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light"><a class="theme-link" href="#">#5</a></th>
+									    <td>When the response from the processor / acquirer is receieved Payonic will notify the merchant asynchronously by a HTTP POST request including JSON payload to deliver the response for the original payment operation request.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h3 id="item-3-3">Auhentication</h3>
+						<p>To auhenticate the Payonic API an API-key will be rquired. This API-key can be fetched from within the Payonic back-office from the menu "Settings" -> "API-key".</p>
+						<p>The API key is then required in all API requests by setting the API-key header <b>Authorization</b> to the value <b>Basic <i>API-key</i></b>. Below is an example on how to call the API to get details about a payment with id <b><i>4f27f22d644e4aaebbb92b70316278f0</i></b> using cURL with API-key "<b><i>1234567890ABC</i></b>":</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+	<span class="hljs-attr">curl https://api.payment.payonic.com/payment/abcdefg -H "Authorization: Basic 1234567890ABC"</span>
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<h4>Trace header</h4>
+						<p>To trace each API request a simple header can be added to each individual request. The header is named TraceApi and must be set to an unique value (GUID). When both client and server stores this unique reference quick debugging is enabled. </p>
+						<p>Below is an example of how this header is set using cURL:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+	<span class="hljs-attr">curl https://api.payonic.payonic.com/payment/abcdefg -H "TraceApi: e018fdfb5bda40e4a7e91759c22922fd"</span>
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<h3 id="item-3-3">MIT authorization</h3>
+						<p>A MIT authorization initiated by a merchant on behalf of a customer, using existing card holder data stored in the system.</p>
+						<p>The end-point of the API call is: <b>https://api.mit.payonic.com/api/mit</b></p>
+						<p>Request:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
+	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
+	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+	<span class="hljs-attr">"reference"</span>: <span class="hljs-string">"order-12345"</span>,
+	<span class="hljs-attr">"paymenttype"</span>: <span class="hljs-string">"unscheduled"</span>,
+	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
+	<span class="hljs-attr">"textonstatement"</span>: <span class="hljs-string">"cardtokens.io order-12345"</span>,
+	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
+	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
+	<span class="hljs-attr">"customer"</span>:
+	{
+		<span class="hljs-attr">"email"</span>: <span class="hljs-string">"don.johnson.miami-vice@payonic.com"</span>,
+		<span class="hljs-attr">"firstname"</span>: <span class="hljs-string">"Don"</span>,
+		<span class="hljs-attr">"surename"</span>: <span class="hljs-string">"Johnson"</span>,
+		<span class="hljs-attr">"ipaddress"</span>: <span class="hljs-string">"127.0.0.1"</span>,
+	}
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr id="merchantid">
+									    <th class="theme-bg-light">merchantid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymentid">
+									    <th class="theme-bg-light">paymentid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="merchantpaymentid">
+									    <th class="theme-bg-light">merchantpaymentid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="amount">
+									    <th class="theme-bg-light">amount</th>
+									    <td>The amount of the payment in minor units. E.g. DKK 10,95 becomes 1095.</td>
+										<td>Int</td>
+										<td>^[Z0-9]{1,12}$</td>
+									</tr>
+									<tr id="currency">
+									    <th class="theme-bg-light">currency</th>
+									    <td>The currency of the payment according to the ISO 4217 alpha 3 code. E.g. Danish kroner is "DKK", Euro is "EUR" and US Dollar is "USD".</td>
+										<td>String</td>
+										<td>^[Z0-9]{3}$</td>
+									</tr>
+									<tr id="reference">
+									    <th class="theme-bg-light">reference</th>
+									    <td>Reference is the order reference assigned to the payment.</td>
+										<td>String</td>
+										<td>^[a-zA-Z0-9- ]{0,32}$</td>
+									</tr>
+									<tr id="paymenttype">
+									    <th class="theme-bg-light">paymenttype</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="processor">
+									    <th class="theme-bg-light">processor</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">textonstatement</th>
+									    <td>This parameter is used to override the label put on the cardholder bank-statement. Normally this is the domain of the e-commerce, name of app + an order reference.</td>
+										<td>String</td>
+										<td>^[a-zA-Z0-9- ]{0,32}$</td>
+									</tr>
+									<tr id="note">
+									    <th class="theme-bg-light">note</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="tags">
+									    <th class="theme-bg-light">tags</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="email">
+									    <th class="theme-bg-light">customer.email</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="firstname">
+									    <th class="theme-bg-light">firstname</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="surename">
+									    <th class="theme-bg-light">surename</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="ipaddress">
+									    <th class="theme-bg-light">customer.ipaddress</th>
+									    <td></td>
+										<td></td>
+										<td style="max-width: 125px; word-wrap: break-word"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Response:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr id="operationid">
+									    <th class="theme-bg-light">operationid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Notification:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
+	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
+	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>,
+	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr>
+										<tr id="operationid">
+									    	<th class="theme-bg-light" >operationid</th>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr id="responsecode">
+											<th class="theme-bg-light">responsecode</th>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr id="authorizationcode">
+											<th class="theme-bg-light">authorizationcode</th>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr id="status">
+											<th class="theme-bg-light">status</th>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr id="processor">
+											<th class="theme-bg-light">processor</th>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3 id="item-3-4">Capture</h3>
+						<p>When a payment has been created it must be captured by the merchant to transfer the funds from the card holder bank account to the merchant bank account.</p>
+						<p>The end-point of the API call is: <b>https://api.capture.payonic.com/api/{paymentid}/capture</b>. {paymentid} is replaced by either <b>paymentid</b> or <b>merchantpaymentid</b>. The method is <b>POST</b>.</p>
+						<p>Request:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
+	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
+	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="amount">
+									    <th class="theme-bg-light">amount</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="note">
+									    <th class="theme-bg-light">note</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="tags">
+									    <th class="theme-bg-light">tags</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Response:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr id="operationid">
+									    <th class="theme-bg-light">operationid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Notification:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
+	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
+	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="operationid">
+										<th class="theme-bg-light">operationid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="responsecode">
+										<th class="theme-bg-light">responsecode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="authorizationcode">
+										<th class="theme-bg-light">authorizationcode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="status">
+										<th class="theme-bg-light">status</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<h3 id="item-3-5">Refund</h3>
+						<p>If a captured payment has to be refunded back to the card holder the refund API call needs to be used.</p>
+						<p>The end-point of the API call is: <b>https://api.refund.payonic.com/api/{paymentid}/refund</b>. {paymentid} is replaced by either <b>paymentid</b> or <b>merchantpaymentid</b>. The method is <b>POST</b>.</p>
+						<p>Request:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
+	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
+	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="amount">
+									    <th class="theme-bg-light">amount</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="note">
+									    <th class="theme-bg-light">note</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="tags">
+									    <th class="theme-bg-light">tags</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Response:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr id="operationid">
+									    <th class="theme-bg-light">operationid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Notification:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
+	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
+	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="operationid">
+										<th class="theme-bg-light">operationid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="responsecode">
+										<th class="theme-bg-light">responsecode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="authorizationcode">
+										<th class="theme-bg-light">authorizationcode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="status">
+										<th class="theme-bg-light">status</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+						<h3 id="item-3-6">Payout</h3>
+						<p>Payout is used to send funds to a card holder. E.g. payout from a gambling account or semilar.</p>
+						<p>The end-point of the API call is: <b>https://api.payout.payonic.com/api/{paymentid}/payout</b>. {paymentid} is replaced by either <b>paymentid</b> or <b>merchantpaymentid</b>. The method is <b>POST</b>.</p>
+						<p>Request:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
+	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+	<span class="hljs-attr">"email"</span>: <span class="hljs-string">"don.johnson.miami-vice@payonic.com"</span>,
+	<span class="hljs-attr">"firstname"</span>: <span class="hljs-string">"Don"</span>,
+	<span class="hljs-attr">"surename"</span>: <span class="hljs-string">"Johnson"</span>,
+	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
+	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="amount">
+									    <th class="theme-bg-light">amount</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">email</th>
+									    <td>The e-mail address of the card holder to receive the funds.</td>
+										<td>String</td>
+										<td>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</td>
+									</tr>
+									<tr id="firstname">
+									    <th class="theme-bg-light">firstname</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="surename">
+									    <th class="theme-bg-light">surename</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="note">
+									    <th class="theme-bg-light">note</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="tags">
+									    <th class="theme-bg-light">tags</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Response:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr id="operationid">
+									    <th class="theme-bg-light">operationid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Notification:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
+	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
+	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="operationid">
+										<th class="theme-bg-light">operationid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="responsecode">
+										<th class="theme-bg-light">responsecode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="authorizationcode">
+										<th class="theme-bg-light">authorizationcode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="status">
+										<th class="theme-bg-light">status</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+
+						<h3 id="item-3-7">Payment</h3>
+						<p>The Payment API is used to get details about an existing payment.</p>
+						<p>The end-point of the API call is: <b>https://api.payment.payonic.com/api/{paymentid}/payment</b>. {paymentid} is replaced by either <b>paymentid</b> or <b>merchantpaymentid</b>. The method is <b>GET</b>.</p>
+
+						<p>Request:</p>
+						<p>There is no payload transmitted with the request.</p>
+						
+						<p>Response:</p>
+						<p>There is no payload transmitted with the response.</p>
+
+						<p>Notification:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
+	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
+	<span class="hljs-attr">"balance"</span>: <span class="hljs-number">0</span>,
+	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+	<span class="hljs-attr">"reference"</span>: <span class="hljs-string">"order-12345"</span>,
+	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
+	<span class="hljs-attr">"textonstatement"</span>: <span class="hljs-string">"cardtokens.io order-12345"</span>,
+	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
+	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
+	<span class="hljs-attr">"sca"</span>: <span class="hljs-number">"1"</span>,
+	<span class="hljs-attr">"scheme"</span>: <span class="hljs-number">"finaro"</span>,
+	<span class="hljs-attr">"funding"</span>: <span class="hljs-number">"credit"</span>,
+	<span class="hljs-attr">"pantype"</span>: <span class="hljs-number">"dpan"</span>,
+	<span class="hljs-attr">"customer"</span>:
+	{
+		<span class="hljs-attr">"email"</span>: <span class="hljs-string">"noreply@cardtokens.io"</span>,
+		<span class="hljs-attr">"firstname"</span>: <span class="hljs-string">"Don"</span>,
+		<span class="hljs-attr">"surename"</span>: <span class="hljs-string">"Johnson"</span>,
+		<span class="hljs-attr">"ipaddress"</span>: <span class="hljs-string">"127.0.0.1"</span>,
+	},
+	<span class="hljs-attr">"operations"</span>:
+	[
+		{
+			<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+			<span class="hljs-attr">"operationtype"</span>: <span class="hljs-string">"authorize"</span>,
+			<span class="hljs-attr">"paymenttype"</span>: <span class="hljs-string">"unscheduled"</span>,
+			<span class="hljs-attr">"amount"</span>: <span class="hljs-string">"1095"</span>,
+			<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+			<span class="hljs-attr">"created"</span>: <span class="hljs-string">"2023-02-06 10:44:13"</span>,
+			<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the operation"</span>,
+			<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
+			<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
+			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
+		},
+		{
+			<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+			<span class="hljs-attr">"operationtype"</span>: <span class="hljs-string">"capture"</span>,
+			<span class="hljs-attr">"amount"</span>: <span class="hljs-string">"1095"</span>,
+			<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+			<span class="hljs-attr">"created"</span>: <span class="hljs-string">"2023-02-06 10:44:13"</span>,
+			<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the operation"</span>,
+			<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
+			<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
+			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
+		},
+		{
+			<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+			<span class="hljs-attr">"operationtype"</span>: <span class="hljs-string">"refund"</span>,
+			<span class="hljs-attr">"amount"</span>: <span class="hljs-string">"500"</span>,
+			<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
+			<span class="hljs-attr">"created"</span>: <span class="hljs-string">"2023-02-06 10:44:13"</span>,
+			<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the operation"</span>,
+			<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
+			<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
+			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
+		},
+	]
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="merchantid">
+										<th class="theme-bg-light">merchantid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymentid">
+										<th class="theme-bg-light">paymentid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="merchantpaymentid">
+										<th class="theme-bg-light">merchantpaymentid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="amount">
+										<th class="theme-bg-light">amount</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="balance">
+										<th class="theme-bg-light">balance</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="currency">
+										<th class="theme-bg-light">currency</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="reference">
+										<th class="theme-bg-light">reference</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymenttype">
+										<th class="theme-bg-light">paymenttype</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="processor">
+										<th class="theme-bg-light">processor</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="textonstatement">
+										<th class="theme-bg-light">textonstatement</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="note">
+										<th class="theme-bg-light">note</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="tags">
+										<th class="theme-bg-light">tags</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<th class="theme-bg-light">scheme</th>
+										<td>The major scheme of the PAN.</td>
+										<td>String</td>
+										<td>^(visa|mastercard|amex)$</td>
+									</tr>
+									<tr>
+										<th class="theme-bg-light">segment</th>
+										<td>The owner type of the PAN.</td>
+										<td>String</td>
+										<td>^(consumer|business|commercial|government|other)$</td>
+									</tr>
+									<tr>
+										<th class="theme-bg-light">funding</th>
+										<td>What type of funding behind the PAN</td>
+										<td>String</td>
+										<td>^(credit|debit|prepaid|charge|defereddebit)$</td>
+									</tr>
+									<tr>
+										<th class="theme-bg-light">pantype</th>
+										<td>If the details stored are made on behalf of a token (DPAN) or a standard card number (FPAN).</td>
+										<td>String</td>
+										<td>^(dpan|fpan)$</td>
+									</tr>
+									<tr id="email">
+										<th class="theme-bg-light">customer.email</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="firstname">
+										<th class="theme-bg-light">customer.firstname</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="surename">
+										<th class="theme-bg-light">customer.surename</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="ipaddress">
+										<th class="theme-bg-light">customer.ipaddress</th>
+										<td></td>
+										<td></td>
+										<td style="max-width: 125px; word-wrap: break-word"></td>
+									</tr>
+									<tr id="operationid">
+										<th class="theme-bg-light">operations[].operationid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="operationtype">
+										<th class="theme-bg-light">operations[].operationtype</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymenttype">
+										<th class="theme-bg-light">operations[].paymenttype</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="amount">
+										<th class="theme-bg-light">operations[].amount</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="operationtype">
+										<th class="theme-bg-light">operations[].currency</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="created">
+										<th class="theme-bg-light">operations[].created</th>
+										<td>The UTC time of the operation formatted as:<br><i>YYYY-MM-DD HH:MM:SS</i></td>
+										<td>String</td>
+										<td>^\d{4}-\d{2}-\d{2} ([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$</td>
+									</tr>
+									<tr id="note">
+										<th class="theme-bg-light">operations[].note</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="responsecode">
+										<th class="theme-bg-light">operations[].responsecode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="authorizationcode">
+										<th class="theme-bg-light">operations[].authorizationcode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="status">
+										<th class="theme-bg-light">operations[].status</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+						<h3 id="item-3-8">Health</h3>
+						<p>The Health API is used to get the current status of the API.</p>
+						<p>The end-point of the API call is: <b>https://api.health.payonic.com/api/health</b>. The method is <b>GET</b>.</p>
+
+						<p>Request:</p>
+						<p>There is no payload transmitted with the request.</p>
+						
+						<p>Response:</p>
+						<p>The response with be an actual status of the Payonic APIs.</p>
+
+						
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"api"</span>: 
+	[
+		{
+			<span class="hljs-attr">"api"</span>: <span class="hljs-string">"api.cit.payonic.com"</span>,
+			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"ok"</span>,
+			<span class="hljs-attr">"msg"</span>: <span class="hljs-string">""</span>
+		},
+		{
+			<span class="hljs-attr">"api"</span>: <span class="hljs-string">"api.mit.payonic.com"</span>,
+			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"ok"</span>,
+			<span class="hljs-attr">"msg"</span>: <span class="hljs-string">""</span>
+		},
+		{
+			<span class="hljs-attr">"api"</span>: <span class="hljs-string">"api.capture.payonic.com"</span>,
+			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"error"</span>,
+			<span class="hljs-attr">"msg"</span>: <span class="hljs-string">"No response received from the API request."</span>
+		},
+		{
+			<span class="hljs-attr">"api"</span>: <span class="hljs-string">"api.refund.payonic.com"</span>,
+			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"ok"</span>,
+			<span class="hljs-attr">"msg"</span>: <span class="hljs-string">""</span>
+		},
+		{
+			<span class="hljs-attr">"api"</span>: <span class="hljs-string">"api.payout.payonic.com"</span>,
+			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"ok"</span>,
+			<span class="hljs-attr">"msg"</span>: <span class="hljs-string">""</span>
+		},
+		{
+			<span class="hljs-attr">"api"</span>: <span class="hljs-string">"api.payment.payonic.com"</span>,
+			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"ok"</span>,
+			<span class="hljs-attr">"msg"</span>: <span class="hljs-string">""</span>
+		}
+	],
+	<span class="hljs-attr">"app.payonic.com"</span>:
+	{
+		<span class="hljs-attr">"status"</span>: <span class="hljs-string">"ok"</span>,
+		<span class="hljs-attr">"msg"</span>: <span class="hljs-string">""</span>
+	},
+	<span class="hljs-attr">"www.payonic.com"</span>:
+	{
+		<span class="hljs-attr">"status"</span>: <span class="hljs-string">"ok"</span>,
+		<span class="hljs-attr">"msg"</span>: <span class="hljs-string">""</span>
+	}
+}
+	
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="merchantid">
+										<th class="theme-bg-light">merchantid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymentid">
+										<th class="theme-bg-light">paymentid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="merchantpaymentid">
+										<th class="theme-bg-light">merchantpaymentid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="amount">
+										<th class="theme-bg-light">amount</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="balance">
+										<th class="theme-bg-light">balance</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="currency">
+										<th class="theme-bg-light">currency</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="reference">
+										<th class="theme-bg-light">reference</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymenttype">
+										<th class="theme-bg-light">paymenttype</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="processor">
+										<th class="theme-bg-light">processor</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="textonstatement">
+										<th class="theme-bg-light">textonstatement</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="note">
+										<th class="theme-bg-light">note</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="tags">
+										<th class="theme-bg-light">tags</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="email">
+										<th class="theme-bg-light">customer.email</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="firstname">
+										<th class="theme-bg-light">customer.firstname</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="surename">
+										<th class="theme-bg-light">customer.surename</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="ipaddress">
+										<th class="theme-bg-light">customer.ipaddress</th>
+										<td></td>
+										<td></td>
+										<td style="max-width: 125px; word-wrap: break-word"></td>
+									</tr>
+									<tr id="operationid">
+										<th class="theme-bg-light">operations[].operationid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="operationtype">
+										<th class="theme-bg-light">operations[].operationtype</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymenttype">
+										<th class="theme-bg-light">operations[].paymenttype</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="amount">
+										<th class="theme-bg-light">operations[].amount</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="operationtype">
+										<th class="theme-bg-light">operations[].currency</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="created">
+										<th class="theme-bg-light">operations[].created</th>
+										<td>The UTC time of the operation </td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="note">
+										<th class="theme-bg-light">operations[].note</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="responsecode">
+										<th class="theme-bg-light">operations[].responsecode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="authorizationcode">
+										<th class="theme-bg-light">operations[].authorizationcode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="status">
+										<th class="theme-bg-light">operations[].status</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</section>
+				</article>
+
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+				        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+				        <!--ul class="social-list list-unstyled pt-4 mb-0">
+						    <li class="list-inline-item"><a href="#"><i class="fab fa-github fa-fw"></i></a></li> 
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-slack fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-product-hunt fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f fa-fw"></i></a></li>
+				            <li class="list-inline-item"><a href="#"><i class="fab fa-instagram fa-fw"></i></a></li>
+				        </ul--><!--//social-list-->
+						<p class="text-center text-muted mt-3 mb-3">© Copyright Payonic Aps <span id="footerYear">2023</span>. All Rights Reserved.</p>
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+   
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+	<script>setDefaultData();</script>
+</body>
+</html> 
+
