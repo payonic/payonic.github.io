@@ -129,6 +129,7 @@
 	<span class="hljs-attr">"rule"</span>: <span class="hljs-number">1</span>,
 	<span class="hljs-attr">"timeout"</span>: <span class="hljs-number">900</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"hostedid"</span>: <span class="hljs-string">"123e2451482d441ead8e286236972abc"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -136,11 +137,11 @@
 							<table class="table table-bordered">
 								<tbody>
 								    <tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">merchantid</a></th>
+									    <th class="theme-bg-light">merchantid</th>
 									    <td>This is the unique identifier of the merchant to accept the payment.</td>
 									</tr>
 									<tr>
-									      <th class="theme-bg-light"><a class="theme-link" href="#">amount</a></th>
+									      <th class="theme-bg-light">amount</th>
 									      <td>
 												This is the amount of the payment. The amount must be defined in minor units. E.g. 2,50 DKK must be set as 250.
 												<br>
@@ -148,27 +149,27 @@
 										  </td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">currency</a></th>
+									    <th class="theme-bg-light">currency</th>
 									    <td>The currency code of the payment. For Danish Kroner defined as DKK.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">reference</a></th>
+									    <th class="theme-bg-light">reference</th>
 									    <td>This is the order reference.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">idpan</a></th>
+									    <th class="theme-bg-light"></th>
 									    <td>This is the identifier of the HTML element, which needs to include the PAN hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpmonth</a></th>
+									    <th class="theme-bg-light">idexpmonth</th>
 									    <td>This is the identifier of the HTML element, which needs to include the expiry month hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpyear</a></th>
+									    <th class="theme-bg-light">idexpyear</th>
 									    <td>This is the identifier of the HTML element, which needs to include the expiry year hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">set3ds</a></th>
+									    <th class="theme-bg-light">set3ds</th>
 									    <td>
 											How 3D secure is handled:<br>
 											<ul>
@@ -180,7 +181,7 @@
 										</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">rule</a></th>
+									    <th class="theme-bg-light">rule</th>
 									    <td>
 											The authorization rule to use (primary, seconday acquirer / processor).
 											<br>
@@ -188,7 +189,7 @@
 										</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">timeout</a></th>
+									    <th class="theme-bg-light">timeout</th>
 									    <td>
 											The number of seconds the window is valid. When a timeout occurs the window is closed and notification transmitted to the integrator.
 											<br>
@@ -197,9 +198,15 @@
 										</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">paymentid</a></th>
+									    <th class="theme-bg-light">paymentid</th>
 									    <td>
 											If a CIT payment on behalf of existing stored payment data is used.
+										</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">hostedid</th>
+									    <td>
+											If the merchant has many integrations of the hosted fields this individual notificationurl's and styling is defined.
 										</td>
 									</tr>
 								</tbody>
@@ -211,9 +218,6 @@
 {
 	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
-	<span class="hljs-attr">"accepturl"</span>: <span class="hljs-string">""</span>,
-	<span class="hljs-attr">"cancelurl"</span>: <span class="hljs-string">""</span>,
-	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">""</span>,
 	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">10</span>,
 	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
 	<span class="hljs-attr">"reference"</span>: <span class="hljs-string">"order-12345"</span>,
@@ -234,75 +238,75 @@
 							<table class="table table-bordered">
 								<tbody>
 								    <tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">merchantid</a></th>
+									    <th class="theme-bg-light">merchantid</th>
 									    <td>This is the unique identifier of the merchant to accept the payment.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">sessionid</a></th>
+									    <th class="theme-bg-light">sessionid</th>
 									    <td>The sessionid.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">accepturl</a></th>
+									    <th class="theme-bg-light">accepturl</th>
 									    <td>The accepturl.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">cancelurl</a></th>
+									    <th class="theme-bg-light">cancelurl</th>
 									    <td>The cancelurl.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">notificationurl</a></th>
+									    <th class="theme-bg-light">notificationurl</th>
 									    <td>The notificationurl.</td>
 									</tr>
 									<tr>
-									      <th class="theme-bg-light"><a class="theme-link" href="#">amount</a></th>
+									      <th class="theme-bg-light">amount</th>
 									      <td>This is the amount of the payment. The amount must be defined in minor units. E.g. 2,50 DKK must be set as 250.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">currency</a></th>
+									    <th class="theme-bg-light">currency</th>
 									    <td>The currency code of the payment. For Danish Kroner defined as DKK.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">reference</a></th>
+									    <th class="theme-bg-light">reference</th>
 									    <td>This is the order reference.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">idpan</a></th>
+									    <th class="theme-bg-light">idpan</th>
 									    <td>This is the identifier of the HTML element, which needs to include the PAN hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpmonth</a></th>
+									    <th class="theme-bg-light">idexpmonth</th>
 									    <td>This is the identifier of the HTML element, which needs to include the expiry month hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">idexpyear</a></th>
+									    <th class="theme-bg-light">idexpyear</th>
 									    <td>This is the identifier of the HTML element, which needs to include the expiry year hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">idsecuritycode</a></th>
+									    <th class="theme-bg-light">idsecuritycode</th>
 									    <td>Field for the security code.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlpan</a></th>
+									    <th class="theme-bg-light">dfurlpan</th>
 									    <td>The url for the PAN hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlexpmonth</a></th>
+									    <th class="theme-bg-light">dfurlexpmonth</th>
 									    <td>The url for the expmonth hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlexpyear</a></th>
+									    <th class="theme-bg-light">dfurlexpyear</th>
 									    <td>The url for the expyear hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlsecuritycode</a></th>
+									    <th class="theme-bg-light">dfurlsecuritycode</th>
 									    <td>The url for the securitycode hosted field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlsingle</a></th>
+									    <th class="theme-bg-light">dfurlsingle</th>
 									    <td>The url for single payment strip field.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">dfurlscriptinclude</a></th>
+									    <th class="theme-bg-light">dfurlscriptinclude</th>
 									    <td>The url to include the dynamic fields JavaScript.</td>
 									</tr>
 								</tbody>
@@ -349,6 +353,7 @@
 				jspaymentsuccess: paymentSuccess,
 				jspaymentstarted: paymentStarted,
 				jspaymentfailed: paymentFailed,
+				jspaymenttimeout: paymentTimeout,
 			}
 			initDynamic( req );
 		});
@@ -363,20 +368,24 @@
 							<table class="table table-bordered">
 								<tbody>
 								    <tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">jsinitsuccess</a></th>
+									    <th class="theme-bg-light">jsinitsuccess</th>
 									    <td>This JavaScript function is called when the hosted fields are initialized by success.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">jspaymentsuccess</a></th>
+									    <th class="theme-bg-light">jspaymentsuccess</th>
 									    <td>This JavaScript function is called when the payment is successfull made.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">jspaymentstarted</a></th>
+									    <th class="theme-bg-light">jspaymentstarted</th>
 									    <td>This JavaScript function is called when the payment process has started.</td>
 									</tr>
 									<tr>
-									    <th class="theme-bg-light"><a class="theme-link" href="#">jspaymentfailed</a></th>
+									    <th class="theme-bg-light">jspaymentfailed</th>
 									    <td>This JavaScript function is called if the payment has failed.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">jspaymenttimeout</th>
+									    <td>This JavaScript function is called if the payment window is timed out.</td>
 									</tr>
 								</tbody>
 							</table>
