@@ -72,6 +72,7 @@
 				    <li class="nav-item section-title"><a class="nav-link" href="docs-introduction.html"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>Introduction</a></li>
 				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto active" href="#section-2"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-down"></i></span>Get started</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Payonic account</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Endpoints for notifications</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link " href="./docs-integration-hosted-fields.html"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>Integration</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-integration-hosted-fields-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>Hosted Fields examples</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-api.html"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>API</a></li>
@@ -89,6 +90,33 @@
 						<p>Before you can start testing Payonic you will need a test account. </p>
 						<p>Please write to morten@cardtokens.io if you want a test account. </p>
 						<p>We will then shortly come back to you with further information on how to test.</p>
+
+						<h3 id="item-1-2">Endpoints for notifications</h3>
+						<p>
+							The communication from Payonic to the integrating merchant is handled by notifications. That means a list of endpoints can be setup within the Payonic
+							system to process notifications for individual need. Notice that these endpoints can also be overruled when calling the Payonic API:
+
+							<h4>Endpoints that can be configured</h4>
+							<ul>
+								<li>CIT payment status</li>
+								<li>MIT payment status</li>
+								<li>Void</li>
+								<li>Capture</li>
+								<li>Refund</li>
+								<li>Payout</li>
+								<li>Payment (get details of a payment)</li>
+								<li>Payment updated (PAN updated by life cycle management)</li>
+							</ul>
+						</p>
+
+						<h4>Payment updated (life cycle management)</h4>
+						<p>
+							Payonic supports life cycle management. That means that payments created as network tokens are automatically enrolled into a life cycle management program where the 
+							payment is automatically updated with new card details when the user is having a new credit card issued by the bank.<br>
+							<br>
+							A notification can also be defined as the card holder has chosen to delete the card, which means the payment is no longer valid.
+						</p>
+
 					</section>
 				</article>
 

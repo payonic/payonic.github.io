@@ -78,6 +78,7 @@
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-4">Initialize the hosted fields</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-5">JavaScript events</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-6">Add a payment button</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-7">Notification</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-integration-hosted-fields-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>Hosted Fields examples</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-api.html"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>API</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-api-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>API examples</a></li>
@@ -131,6 +132,11 @@
 	<span class="hljs-attr">"timeout"</span>: <span class="hljs-number">900</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"hostedid"</span>: <span class="hljs-string">"123e2451482d441ead8e286236972abc"</span>,
+	<span class="hljs-attr">"instantcapture"</span>: <span class="hljs-number">0</span>,
+	<span class="hljs-attr">"processor"</span>:  ["finaro", "bambora"],
+	<span class="hljs-attr">"merchantdata"</span>: <span class="hljs-string">"Any kind of data that the merchant whish to parse through"</span>, 
+	<span class="hljs-attr">"textonstatement"</span>: <span class="hljs-string">"Payonic.com order 12345"</span>, 
+	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">"https://www.payonic.com/citpayment"</span>, 
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -205,13 +211,53 @@
 									<tr>
 									    <th class="theme-bg-light">paymentid</th>
 									    <td>
-											If a CIT payment on behalf of existing stored payment data is used.
+											If a CIT payment on behalf of existing stored payment data is used. When this value is set the cardholder will not be prompted to enter card details. Instead the card holder data retrieved from this paymentid is used.<br>
 										</td>
 									</tr>
 									<tr>
 									    <th class="theme-bg-light">hostedid</th>
 									    <td>
 											If the merchant has many integrations of the hosted fields this individual notificationurl's and styling is defined.
+										</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">instantcapture</th>
+									    <td>
+											If the payment should be captured intantly or not.<br />
+											<ul>
+												<li>0 indicates that the payment should not be captured instantly.</li>
+												<li>1 indicates that the payment should be captured instantly and if somehow the instant capture fails the payment is voided.</li>
+												<li>2 indicates that the payment should be captured instantly and if some the instant capture fails the authorization is kept (no void is made)</li>
+											</ul>
+											Default value is 0 (don't use instant capture)<br />
+										</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">processor</th>
+										<td>
+											List of processors to use.
+											This is the routing of the payment. The value can be <i>finaro</i>, <i>clearhaus</i> or <i>bambora</i>.<br>
+											If the value is blank Payonic will decide how payment should be routed from configuration internally.<br />
+											The priority of the processors is made on the order. That means that if the first processor fails / declines then the next in the list will be used and so on untill all processors in the list have been tried.
+
+										</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">merchantdata</th>
+										<td>
+											This is any kind of pass-through-data which the merchant wish to pass through Payonic and back again on the notification. It is recommended to encode this data as Base64 to void any encoding errors.
+										</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">textonstatement</th>
+										<td>
+											This is the data is set on the transaction in the bank viewed by the card holder. That can be e.g. "Payonic.com order 123".
+										</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">notificationurl</th>
+										<td>
+											If this value is set the URL to where Payonic notifies payments status is overridden.
 										</td>
 									</tr>
 								</tbody>
@@ -422,6 +468,7 @@
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>,
 	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
 	<span class="hljs-attr">"tcardnumber"</span>: <span class="hljs-string">"457123xxxxxx4578"</span>,
+	<span class="hljs-attr">"eci"</span>: <span class="hljs-string">"07"</span>,
 }
 							</code></pre>
 						</div>
@@ -465,6 +512,18 @@
 										<td>The truncated cardnumber of the payment.</td>
 										<td>String</td>
 										<td>^\d{6}([x*]{4,})\d{4}$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">eci</th>
+										<td>The ECI level used in the authorizationi towards the processor</td>
+										<td>Number</td>
+										<td>^(\d{1,2})?$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">merchantdata</th>
+										<td>This is the pass-through-data received from the merchant when initializing the payment session. This data is passed back to the merchant.</td>
+										<td>String</td>
+										<td>^.{0,4096}$</td>
 									</tr>
 								</tbody>
 							</table>

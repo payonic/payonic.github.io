@@ -51,7 +51,9 @@
 			setRow("firstname", "The first name of the card holder.", "String", "^[A-Za-z]{1,64}$");
 			setRow("surename", "The last name (surename) of the card holder.", "String", "^[A-Za-z]{1,64}$");
 			setRow("ipaddress", "The ipaddress of the customer.", "String", "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
-			setRow("operationtype", "The type of the operation", "String", "^(authorize|capture|refund|payout|incremental)$")
+			setRow("operationtype", "The type of the operation", "String", "^(authorize|capture|refund|payout|incremental)$");
+			setRow("notificationurl", "If this value is set the URL to where Payonic about the status of this operation is overridden.", "String", "\\bhttps?://\\S+");
+			
 			
 		}
 
@@ -117,6 +119,7 @@
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-6">Payout</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-7">Payment</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-8">Health</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-9">Life cycle management</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-api-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>API examples</a></li>
 			    </ul>
 
@@ -141,6 +144,7 @@
 							<li>Payout. To make payouts to customers. (e.g. gambling).</li>
 							<li>Health. Get healt data from the Payonic API's.</li>
 							<li>Payment. Get details about a payment.</li>
+							<li>Life cycle management. Get notified upon updates from the card issuer.</li>
 						</ul>
 						
 						<h3 id="item-3-2">Flow</h3>
@@ -212,7 +216,8 @@
 		<span class="hljs-attr">"firstname"</span>: <span class="hljs-string">"Don"</span>,
 		<span class="hljs-attr">"surename"</span>: <span class="hljs-string">"Johnson"</span>,
 		<span class="hljs-attr">"ipaddress"</span>: <span class="hljs-string">"127.0.0.1"</span>,
-	}
+	},
+	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">"https://www.payonic.com/mitauthorization"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -311,6 +316,12 @@
 									</tr>
 									<tr id="ipaddress">
 									    <th class="theme-bg-light">customer.ipaddress</th>
+									    <td></td>
+										<td></td>
+										<td style="max-width: 125px; word-wrap: break-word"></td>
+									</tr>
+									<tr id="notificationurl">
+									    <th class="theme-bg-light">notificationurl</th>
 									    <td></td>
 										<td></td>
 										<td style="max-width: 125px; word-wrap: break-word"></td>
@@ -417,6 +428,7 @@
 	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
 	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
 	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
+	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">"https://www.payonic.com/capture"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -446,6 +458,12 @@
 									    <td></td>
 										<td></td>
 										<td></td>
+									</tr>
+									<tr id="notificationurl">
+									    <th class="theme-bg-light">notificationurl</th>
+									    <td></td>
+										<td></td>
+										<td style="max-width: 125px; word-wrap: break-word"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -534,6 +552,7 @@
 	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
 	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
 	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
+	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">"https://www.payonic.com/mitauthorization"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -563,6 +582,12 @@
 									    <td></td>
 										<td></td>
 										<td></td>
+									</tr>
+									<tr id="notificationurl">
+									    <th class="theme-bg-light">notificationurl</th>
+									    <td></td>
+										<td></td>
+										<td style="max-width: 125px; word-wrap: break-word"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -656,6 +681,8 @@
 	<span class="hljs-attr">"surename"</span>: <span class="hljs-string">"Johnson"</span>,
 	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
 	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
+	<span class="hljs-attr">"textonstatement"</span>: <span class="hljs-string">"www.payonic.com"</span>,
+	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">"https://www.payonic.com/payout"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -703,6 +730,18 @@
 									    <td></td>
 										<td></td>
 										<td></td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">textonstatement</th>
+									    <td>This parameter is used to override the label put on the cardholder bank-statement. Normally this is the domain of the e-commerce, name of app + an order reference.</td>
+										<td>String</td>
+										<td>^[a-zA-Z0-9- ]{0,32}$</td>
+									</tr>
+									<tr id="notificationurl">
+									    <th class="theme-bg-light">notificationurl</th>
+									    <td></td>
+										<td></td>
+										<td style="max-width: 125px; word-wrap: break-word"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -788,10 +827,65 @@
 						<p>The end-point of the API call is: <b>https://api.payment.payonic.com/api/{paymentid}/payment</b>. {paymentid} is replaced by either <b>paymentid</b> or <b>merchantpaymentid</b>. The method is <b>GET</b>.</p>
 
 						<p>Request:</p>
-						<p>There is no payload transmitted with the request.</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">"https://www.payonic.com/payment-information"</span>,
+	<span class="hljs-attr">"gfx"</span>: <span class="hljs-number">0</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr id="notificationurl">
+									    <th class="theme-bg-light">notificationurl</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="">
+									    <th class="theme-bg-light">gfx</th>
+									    <td>If the image of the card should be returned.</td>
+										<td>Int</td>
+										<td>^(0|1)?$</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						
 						<p>Response:</p>
-						<p>There is no payload transmitted with the response.</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"1f4e2451482d441ead8e2862369727d1"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr id="operationid">
+									    <th class="theme-bg-light">operationid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
 						<p>Notification:</p>
 						<div class="docs-code-block">
@@ -800,6 +894,7 @@
 	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
 	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"1f4e2451482d441ead8e2862369727d1"</span>,
 	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
 	<span class="hljs-attr">"balance"</span>: <span class="hljs-number">0</span>,
 	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
@@ -809,7 +904,10 @@
 	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
 	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
 	<span class="hljs-attr">"sca"</span>: <span class="hljs-number">"1"</span>,
-	<span class="hljs-attr">"scheme"</span>: <span class="hljs-number">"finaro"</span>,
+	<span class="hljs-attr">"scheme"</span>: <span class="hljs-number">"visa"</span>,
+	<span class="hljs-attr">"Issuer"</span>: <span class="hljs-number">"Nordea"</span>,
+	<span class="hljs-attr">"Expiry date"</span>: <span class="hljs-number">"01/2029"</span>,
+	<span class="hljs-attr">"last4"</span>: <span class="hljs-number">"1234"</span>,
 	<span class="hljs-attr">"funding"</span>: <span class="hljs-number">"credit"</span>,
 	<span class="hljs-attr">"pantype"</span>: <span class="hljs-number">"dpan"</span>,
 	<span class="hljs-attr">"customer"</span>:
@@ -855,7 +953,18 @@
 			<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
 			<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
 		},
-	]
+	],
+	<span class="hljs-attr">"gfx"</span>: 
+	{
+		<span class="hljs-attr">"b64image"</span>: <span class="hljs-string">"iVBORw0KGgoAA………………AAGUCAYA="</span>,
+		<span class="hljs-attr">"mimetype"</span>: <span class="hljs-string">"image/png"</span>,
+		<span class="hljs-attr">"height"</span>: <span class="hljs-number">404</span>,
+		<span class="hljs-attr">"width"</span>: <span class="hljs-number">640</span>,
+		<span class="hljs-attr">"expmonth"</span>: <span class="hljs-number">2</span>,
+		<span class="hljs-attr">"expyear"</span>: <span class="hljs-number">2029</span>,
+		<span class="hljs-attr">"last4"</span>: <span class="hljs-string">"1234"</span>,
+		<span class="hljs-attr">"issuer"</span>: <span class="hljs-string">"Bank of Cardtokens"</span>
+	}
 							</code></pre>
 						</div><!--//docs-code-block-->
 						<div class="table-responsive my-4">
@@ -882,6 +991,12 @@
 									<tr id="merchantpaymentid">
 										<th class="theme-bg-light">merchantpaymentid</th>
 										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="operationid">
+									    <th class="theme-bg-light">operationid</th>
+									    <td></td>
 										<td></td>
 										<td></td>
 									</tr>
@@ -1047,6 +1162,54 @@
 										<td></td>
 										<td></td>
 									</tr>
+									<tr id="">
+										<th class="theme-bg-light">gfx.b64image</th>
+										<td>A base 64 encoded value of the PNG. This can be inserted directly into an IMG tag or decoded and written to file.</td>
+										<td>String</td>
+										<td>^[\s\S]{0,4096}$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">gfx.mimetype</th>
+										<td>The http protocol formatting type of the image. Currently only image/png is available.</td>
+										<td>String</td>
+										<td>^[a-zA-Z0-9]+/[a-zA-Z0-9\+\-\.]+$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">gfx.height</th>
+										<td>The width of the image.</td>
+										<td>Int</td>
+										<td>^\d+$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">gfx.width</th>
+										<td>The height of the image.</td>
+										<td>Int</td>
+										<td>^\d+$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">gfx.expmonth</th>
+										<td>The expiry month of the token. N2 formatted as 12.</td>
+										<td>Int</td>
+										<td>^\d+$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">gfx.expyear</th>
+										<td>The expiry year of the token. Formatted as N4 (e.g. 2099).</td>
+										<td>Int</td>
+										<td>^\d+$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">gfx.last4</th>
+										<td>The last 4 digits of the PAN.</td>
+										<td>String</td>
+										<td>^\d{4}$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">gfx.issuer</th>
+										<td>The name of the bank which has issued the card.</td>
+										<td>String</td>
+										<td>^[\s\S]*$</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -1113,6 +1276,40 @@
 	
 							</code></pre>
 						</div><!--//docs-code-block-->
+
+						<h3 id="item-3-9">Life cycle management</h3>
+						<p>
+							If a PAN behind a payment is somehow updated by the card issuer and if Payonic is notified about this, then Payonic notifies the with details that a payment has been updated.
+							The URL to where Payonic notifies about payment life cycle management updates is setup within the Payonic back office.
+							<br><br>
+							When the merchant receives this notification the merchant can choose to call the Payment API in order to fetch the latest payment details.
+						</p>
+						<p>Notification:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"1f4e2451482d441ead8e2862369727d1"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr id="paymentid">
+									    <th class="theme-bg-light">paymentid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</section>
 				</article>
 
