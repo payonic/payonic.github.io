@@ -33,7 +33,7 @@
 	<script>
 		function setDefaultData() {
 			setRow("merchantid", "This is the unique identifier of the merchant to accept the payment.", "GUID", "^[a-zA-Z0-9]{1,32}$");
-			setRow("operationid", "The unique identifier of the operation which will be returned in the notification.", "GUID", "^[a-zA-Z0-9]{1,32}$");
+			setRow("responseid", "The unique identifier of the request which will be returned in the notification to match up which request to Payonic matches the returning notification.", "GUID", "^[a-zA-Z0-9]{1,32}$");
 			setRow("processor", "This is the routing of the payment. The value can be <i>finaro</i>, <i>clearhaus</i> or <i>bambora</i>.", "String", "^(finaro|clearhaus|bambora)$");
 			setRow("note", "An note that can be added to the operation within Payonic.", "String", "^[a-zA-Z0-9- ]{0,128}$");
 			setRow("tags", "Tags that can be added to the payment. Tags are seperated by (space).", "String", "^[a-zA-Z0-9 ]{0,32}$");
@@ -159,7 +159,7 @@
 									</tr>
 									<tr>
 									      <th class="theme-bg-light"><a class="theme-link" href="#">#2</a></th>
-									      <td>Payonic replies immidiately to the merchant that the operation has been requested. As return the merchant receives an unique operation identifier (operationid).</td>
+									      <td>Payonic replies immidiately to the merchant that the operation has been requested. As return the merchant receives an unique response identifier (responseid).</td>
 									</tr>
 									<tr>
 									    <th class="theme-bg-light"><a class="theme-link" href="#">#3</a></th>
@@ -333,7 +333,7 @@
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -346,8 +346,8 @@
 										<th class="theme-bg-light"><u>Type</u></th>
 										<th class="theme-bg-light"><u>Pattern</u></th>
 									</tr>
-								    <tr id="operationid">
-									    <th class="theme-bg-light">operationid</th>
+								    <tr id="responseid">
+									    <th class="theme-bg-light">responseid</th>
 									    <td></td>
 										<td></td>
 										<td></td>
@@ -359,7 +359,7 @@
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"12345651482d441ead8e286236123456"</span>,
 	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
 	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
@@ -378,8 +378,8 @@
 										<th class="theme-bg-light"><u>Pattern</u></th>
 									</tr>
 								    <tr>
-										<tr id="operationid">
-									    	<th class="theme-bg-light" >operationid</th>
+										<tr id="responseid">
+									    	<th class="theme-bg-light" >responseid</th>
 											<td></td>
 											<td></td>
 											<td></td>
@@ -472,7 +472,7 @@
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -485,8 +485,8 @@
 										<th class="theme-bg-light"><u>Type</u></th>
 										<th class="theme-bg-light"><u>Pattern</u></th>
 									</tr>
-								    <tr id="operationid">
-									    <th class="theme-bg-light">operationid</th>
+								    <tr id="responseid">
+									    <th class="theme-bg-light">responseid</th>
 									    <td></td>
 										<td></td>
 										<td></td>
@@ -498,7 +498,7 @@
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
 	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
@@ -514,8 +514,8 @@
 										<th class="theme-bg-light"><u>Type</u></th>
 										<th class="theme-bg-light"><u>Pattern</u></th>
 									</tr>
-									<tr id="operationid">
-										<th class="theme-bg-light">operationid</th>
+									<tr id="responseid">
+										<th class="theme-bg-light">responseid</th>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -596,7 +596,7 @@
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -609,8 +609,8 @@
 										<th class="theme-bg-light"><u>Type</u></th>
 										<th class="theme-bg-light"><u>Pattern</u></th>
 									</tr>
-								    <tr id="operationid">
-									    <th class="theme-bg-light">operationid</th>
+								    <tr id="responseid">
+									    <th class="theme-bg-light">responseid</th>
 									    <td></td>
 										<td></td>
 										<td></td>
@@ -622,7 +622,7 @@
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
 	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
@@ -638,8 +638,8 @@
 										<th class="theme-bg-light"><u>Type</u></th>
 										<th class="theme-bg-light"><u>Pattern</u></th>
 									</tr>
-									<tr id="operationid">
-										<th class="theme-bg-light">operationid</th>
+									<tr id="responseid">
+										<th class="theme-bg-light">responseid</th>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -750,7 +750,7 @@
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -763,8 +763,8 @@
 										<th class="theme-bg-light"><u>Type</u></th>
 										<th class="theme-bg-light"><u>Pattern</u></th>
 									</tr>
-								    <tr id="operationid">
-									    <th class="theme-bg-light">operationid</th>
+								    <tr id="responseid">
+									    <th class="theme-bg-light">responseid</th>
 									    <td></td>
 										<td></td>
 										<td></td>
@@ -776,7 +776,7 @@
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
 	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
@@ -792,8 +792,8 @@
 										<th class="theme-bg-light"><u>Type</u></th>
 										<th class="theme-bg-light"><u>Pattern</u></th>
 									</tr>
-									<tr id="operationid">
-										<th class="theme-bg-light">operationid</th>
+									<tr id="responseid">
+										<th class="theme-bg-light">responseid</th>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -832,6 +832,7 @@
 {
 	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">"https://www.payonic.com/payment-information"</span>,
 	<span class="hljs-attr">"gfx"</span>: <span class="hljs-number">0</span>,
+	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"1f4e2451482d441ead8e2862369727d1"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -856,6 +857,12 @@
 										<td>Int</td>
 										<td>^(0|1)?$</td>
 									</tr>
+									<tr id="">
+									    <th class="theme-bg-light">operationid</th>
+									    <td>If a specific operation from the list of operations to be returned. If no value defined all operations are returned.</td>
+										<td>Int</td>
+										<td>^(0|1)?$</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -864,7 +871,7 @@
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"1f4e2451482d441ead8e2862369727d1"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"1f4e2451482d441ead8e2862369727d1"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -877,8 +884,8 @@
 										<th class="theme-bg-light"><u>Type</u></th>
 										<th class="theme-bg-light"><u>Pattern</u></th>
 									</tr>
-								    <tr id="operationid">
-									    <th class="theme-bg-light">operationid</th>
+								    <tr id="responseid">
+									    <th class="theme-bg-light">responseid</th>
 									    <td></td>
 										<td></td>
 										<td></td>
@@ -894,7 +901,7 @@
 	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
 	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
-	<span class="hljs-attr">"operationid"</span>: <span class="hljs-string">"1f4e2451482d441ead8e2862369727d1"</span>,
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"1f4e2451482d441ead8e2862369727d1"</span>,
 	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
 	<span class="hljs-attr">"balance"</span>: <span class="hljs-number">0</span>,
 	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
@@ -994,8 +1001,8 @@
 										<td></td>
 										<td></td>
 									</tr>
-									<tr id="operationid">
-									    <th class="theme-bg-light">operationid</th>
+									<tr id="responseid">
+									    <th class="theme-bg-light">responseid</th>
 									    <td></td>
 										<td></td>
 										<td></td>
