@@ -116,6 +116,7 @@
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">MIT authorization</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-4">Capture</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-5">Refund</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-5-1">Void</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-6">Payout</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-7">Payment</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-8">Health</a></li>
@@ -521,6 +522,8 @@
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
 	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"AAFF2451482d441ead8e28623697BB22"</span>,
 	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
 	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
@@ -538,6 +541,18 @@
 									</tr>
 									<tr id="responseid">
 										<th class="theme-bg-light">responseid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymentid">
+										<th class="theme-bg-light">paymentid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="merchantpaymentid">
+										<th class="theme-bg-light">merchantpaymentid</th>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -645,6 +660,8 @@
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
 	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"AAFF2451482d441ead8e28623697BB22"</span>,
 	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
 	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
@@ -663,6 +680,157 @@
 									<tr id="responseid">
 										<th class="theme-bg-light">responseid</th>
 										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymentid">
+									    <th class="theme-bg-light">paymentid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="merchantpaymentid">
+									    <th class="theme-bg-light">merchantpaymentid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="responsecode">
+										<th class="theme-bg-light">responsecode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="authorizationcode">
+										<th class="theme-bg-light">authorizationcode</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="status">
+										<th class="theme-bg-light">status</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+						<h3 id="item-3-5-1">Void</h3>
+						<p>If an authorized payment has not been captured yet and needs to be voided (cancelled) the void API call needs to be used.</p>
+						<p>The end-point of the API call is: <b>https://api.refund.payonic.com/api/{paymentid}/void</b>. {paymentid} is replaced by either <b>paymentid</b> or <b>merchantpaymentid</b>. The method is <b>POST</b>.</p>
+						<p>Request:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
+	<span class="hljs-attr">"note"</span>: <span class="hljs-string">"this is a simple note added to the payment"</span>,
+	<span class="hljs-attr">"tags"</span>: <span class="hljs-string">"taga tagb tagc"</span>,
+	<span class="hljs-attr">"notificationurl"</span>: <span class="hljs-string">"https://www.payonic.com/mitauthorization"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="amount">
+									    <th class="theme-bg-light">amount</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="note">
+									    <th class="theme-bg-light">note</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="tags">
+									    <th class="theme-bg-light">tags</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="notificationurl">
+									    <th class="theme-bg-light">notificationurl</th>
+									    <td></td>
+										<td></td>
+										<td style="max-width: 125px; word-wrap: break-word"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Response:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+								    <tr id="responseid">
+									    <th class="theme-bg-light">responseid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Notification:</p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"AAFF2451482d441ead8e28623697BB22"</span>,
+	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
+	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
+	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Name</u></th>
+										<th class="theme-bg-light"><u>Description</u></th>
+										<th class="theme-bg-light"><u>Type</u></th>
+										<th class="theme-bg-light"><u>Pattern</u></th>
+									</tr>
+									<tr id="responseid">
+										<th class="theme-bg-light">responseid</th>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="paymentid">
+									    <th class="theme-bg-light">paymentid</th>
+									    <td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr id="merchantpaymentid">
+									    <th class="theme-bg-light">merchantpaymentid</th>
+									    <td></td>
 										<td></td>
 										<td></td>
 									</tr>
