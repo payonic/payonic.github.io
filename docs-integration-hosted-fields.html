@@ -403,7 +403,7 @@
 	&lt;div id=&quot;containerexpyear&quot;&gt;&lt;/div&gt;
 	&lt;div id=&quot;containersecuritycode&quot;&gt;&lt;/div&gt;
 	&lt;div id=&quot;containersingle&quot;&gt;&lt;/div&gt;
-	&lt;div id=&quot;divDynamicFieldsChallenge&quot;&gt;&lt;/div&gt;
+	&lt;div id=&quot;containerchallenge&quot;&gt;&lt;/div&gt;
 								  	</code>
 								</pre>
 							</blockquote>
@@ -422,6 +422,9 @@
 				jspaymentstarted: paymentStarted,
 				jspaymentfailed: paymentFailed,
 				jspaymenttimeout: paymentTimeout,
+				jschallengestarted: challengeStarted,
+				jschallengecompleted: challengeCompleted,
+				jschallengeaborted: challengeaborted,
 			}
 			initDynamic( req );
 		});
@@ -454,6 +457,18 @@
 									<tr>
 									    <th class="theme-bg-light">jspaymenttimeout</th>
 									    <td>This JavaScript function is called if the payment window is timed out.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">jschallengestarted</th>
+									    <td>This JavaScript function is called if the user is subject to challenge and the challenge frame is filled with challenge data.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">jschallengecompleted</th>
+									    <td>This JavaScript function is called if the user is subject to challenge and when the challenge is completed and ready to authorize.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">jschallengeaborted</th>
+									    <td>This JavaScript function is called if the user is subject to challenge and aborts.</td>
 									</tr>
 								</tbody>
 							</table>
