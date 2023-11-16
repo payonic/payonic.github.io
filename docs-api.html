@@ -670,6 +670,7 @@
 						<h3 id="item-3-6">Payout</h3>
 						<p>Payout is used to send funds to a card holder. E.g. payout from a gambling account or semilar.</p>
 						<p>The end-point of the API call is: <b>https://api.payout.payonic.com/api/{paymentid}/payout</b>. {paymentid} is replaced by either <b>paymentid</b> or <b>merchantpaymentid</b>. The method is <b>POST</b>.</p>
+						<p><b>Notice</b> that this is a synchronous API call meaning that the response is returned on the requesting socket.</p>
 						<p>Request:</p>
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
@@ -747,32 +748,8 @@
 							</table>
 						</div>
 						<p>Response:</p>
-						<div class="docs-code-block">
-							<pre class="shadow-lg rounded"><code class="json hljs">
-{
-	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
-}
-							</code></pre>
-						</div><!--//docs-code-block-->
-						<div class="table-responsive my-4">
-							<table class="table table-bordered">
-								<tbody>
-									<tr>
-										<th class="theme-bg-light"><u>Name</u></th>
-										<th class="theme-bg-light"><u>Description</u></th>
-										<th class="theme-bg-light"><u>Type</u></th>
-										<th class="theme-bg-light"><u>Pattern</u></th>
-									</tr>
-								    <tr id="responseid">
-									    <th class="theme-bg-light">responseid</th>
-									    <td></td>
-										<td></td>
-										<td></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<p>Notification:</p>
+						
+						
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {

@@ -79,6 +79,7 @@
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-5">JavaScript events</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-6">Add a payment button</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-7">Notification</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-8">System API declines</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-integration-hosted-fields-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>Hosted Fields examples</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-api.html"><span class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>API</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link" href="docs-api-examples.html"><span class="theme-icon-holder me-2"><i class="fas fa-code"></i></span>API examples</a></li>
@@ -121,6 +122,7 @@
 {
 	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"cc00f2451482d441ead8e28623697aaf0"</span>,
+	<span class="hljs-attr">"newmerchantpaymentid"</span>: <span class="hljs-string">"eeee2451482d441ead8e28623697eeee"</span>,
 	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">250</span>,
 	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
 	<span class="hljs-attr">"reference"</span>: <span class="hljs-string">"order-12345"</span>,
@@ -152,6 +154,10 @@
 										<th class="theme-bg-light">merchantpaymentid</th>
 										<td>The merchant own reference to the existing stored Payonic payment data. If this value is used, the unique value can be used instead of paymentid in the subsequent API calls (capture, refund, void etc.).</td>
 									</tr>
+									<tr id="">
+										<th class="theme-bg-light">newmerchantpaymentid</th>
+										<td>If a payment is made on behalf of an existing paymentid / merchantpaymentid passed as parameter then the payment created will have this new merchantpaymentid.</td>
+									</tr>
 									<tr>
 									      <th class="theme-bg-light">amount</th>
 									      <td>
@@ -160,6 +166,7 @@
 												If amount is set to 0 a token will be created only and returned to the integrator. If fallback to PAN this will be the FPAN instead of the DPAN.
 										  </td>
 									</tr>
+
 									<tr>
 									    <th class="theme-bg-light">currency</th>
 									    <td>The currency code of the payment. For Danish Kroner defined as DKK.</td>
@@ -297,6 +304,10 @@
 								    <tr>
 									    <th class="theme-bg-light">merchantid</th>
 									    <td>This is the unique identifier of the merchant to accept the payment.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">merchantpaymentid</th>
+									    <td>The merchant specific merchantpaymentid value set when calling this initialize API call.</td>
 									</tr>
 									<tr>
 									    <th class="theme-bg-light">sessionid</th>
@@ -464,7 +475,7 @@
 						</p>
 						<p>As the payment is processing JavaScript events will be notified to the function described in the <b>JavaScript events</b> section</p>
 
-						<h3 id="item-3-7">Notification </h3>
+						<h3 id="item-3-7">Notification</h3>
 						<p>When the payment is completed Payonic (success or timed out) notifies using a HTTP POST message to the initiator with successful payment data:</p>
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
@@ -472,6 +483,7 @@
 	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
 	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"AAFF2451482d441ead8e28623697BB22"</span>,
+	<span class="hljs-attr">"newmerchantpaymentid"</span>: <span class="hljs-string">"eeee2451482d441ead8e28623697eeee"</span>,
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>,
 	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
 	<span class="hljs-attr">"tcardnumber"</span>: <span class="hljs-string">"457123xxxxxx4578"</span>,
@@ -506,6 +518,12 @@
 									<tr id="">
 										<th class="theme-bg-light">merchantpaymentid</th>
 										<td>The merchant own reference to the existing stored Payonic payment data.</td>
+										<td>GUID</td>
+										<td>^[a-zA-Z0-9]{1,32}$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">newmerchantpaymentid</th>
+										<td>The merchant own reference to the new payment created on behalf of the existing payment.</td>
 										<td>GUID</td>
 										<td>^[a-zA-Z0-9]{1,32}$</td>
 									</tr>
@@ -586,6 +604,23 @@
 								</tbody>
 							</table>
 						</div>
+
+						<h3 id="item-3-8">System API declines</h3>
+						<p>This section describes the overall error handling when the payment platform declines an inbound request.</p>
+						<P>When the payment platform declines the request it will return to the requester with HTTP status code 400 and include the following payload.</P>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"error"</span>: <span class="hljs-string">"INVALID_PARAMETER"</span>,
+	<span class="hljs-attr">"errordescription"</span>: <span class="hljs-string">"the parameter [amount] with value [100,00] does not support alphanumeric values"</span>,
+}
+							</code></pre>
+						</div><!--//docs-code-block-->
+						<ul>
+							<li>INVALID_API_KEY</li>
+							<li>INVALID_MERCHANTID</li>
+							<li>INVALID_PARAMETER</li>
+						</ul>
 					</section>
 				</article>
 
