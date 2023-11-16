@@ -485,6 +485,8 @@
 	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"AAFF2451482d441ead8e28623697BB22"</span>,
 	<span class="hljs-attr">"newmerchantpaymentid"</span>: <span class="hljs-string">"eeee2451482d441ead8e28623697eeee"</span>,
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>,
+	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
+	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
 	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
 	<span class="hljs-attr">"tcardnumber"</span>: <span class="hljs-string">"457123xxxxxx4578"</span>,
 	<span class="hljs-attr">"eci"</span>: <span class="hljs-string">"07"</span>,
@@ -532,6 +534,18 @@
 										<td>The status of the payment</td>
 										<td>String</td>
 										<td>^(approved|timeout)$</td>
+									</tr>
+									<tr id="responsecode">
+										<th class="theme-bg-light">responsecode</th>
+										<td>The response code from the processor according to ISO 8583.</td>
+										<td>Int</td>
+										<td>^\d{2,3}$</td>
+									</tr>
+									<tr id="authorizationcode">
+										<th class="theme-bg-light">authorizationcode</th>
+										<td>The authorization code is dynamically generated for each transaction and is a series of numbers. While it's common for authorization codes to be around 6 digits long, the specific format and length can vary depending on the payment system, the card network (like Visa, MasterCard, etc.), and the processor being used.</td>
+										<td>Int</td>
+										<td>^[0-9]{1,8}$</td>
 									</tr>
 									<tr id="">
 										<th class="theme-bg-light">processor</th>
