@@ -465,6 +465,7 @@
 {
 	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"AAFF2451482d441ead8e28623697BB22"</span>,
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>,
 	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
 	<span class="hljs-attr">"tcardnumber"</span>: <span class="hljs-string">"457123xxxxxx4578"</span>,
@@ -493,6 +494,12 @@
 									<tr id="">
 										<th class="theme-bg-light">paymentid</th>
 										<td>The payment</td>
+										<td>GUID</td>
+										<td>^[a-zA-Z0-9]{1,32}$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">merchantpaymentid</th>
+										<td>The merchant own reference to the existing stored Payonic payment data.</td>
 										<td>GUID</td>
 										<td>^[a-zA-Z0-9]{1,32}$</td>
 									</tr>
