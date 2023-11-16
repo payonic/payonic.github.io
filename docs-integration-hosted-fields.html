@@ -469,10 +469,11 @@
 	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
 	<span class="hljs-attr">"tcardnumber"</span>: <span class="hljs-string">"457123xxxxxx4578"</span>,
 	<span class="hljs-attr">"eci"</span>: <span class="hljs-string">"07"</span>,
+	<span class="hljs-attr">"merchantdata"</span>: <span class="hljs-string">"merchantdata"</span>,
+	<span class="hljs-attr">"par"</span>: <span class="hljs-string">"391c778120ca6de3a1ba8707e470b"</span>,
 }
 							</code></pre>
 						</div>
-						<p>The notification expects that the receiving system replice by standard HTTP 200 as ok. Otherwise the notification will be retried once every hour up to 24 times.</p>
 
 						<div class="table-responsive my-4">
 							<table class="table table-bordered">
@@ -524,6 +525,50 @@
 										<td>This is the pass-through-data received from the merchant when initializing the payment session. This data is passed back to the merchant.</td>
 										<td>String</td>
 										<td>^.{0,4096}$</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">par</th>
+										<td>Payment Account Reference (PAR) is a non-financial reference value assigned to each
+											unique PAN to link a Payment Account represented by PAN and its affiliated Tokens</td>
+										<td>String</td>
+										<td>^[a-zA-Z0-9]{29}$</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<p>
+							The notification expects that the receiving system replice by standard HTTP 200 as ok. Otherwise the notification will be retried once every hour up to 24 times.
+							That means the system tries to perform a notification immidiately. If this fails the system will retry 3 times with 3 second delay. Upon failure the system will retry 3 times with one hour delay. Finally the system will try to deliver the notification one time after 24 hours which is the final try.
+						</p>
+						<p><img src="assets/images/payonic-notification-flow.png" style="max-width: 90%" /></p>
+						<p>Timeout for each notification is defined by the table below.</p>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th class="theme-bg-light"><u>Delay</u></th>
+										<th class="theme-bg-light"><u>Notification Timeout</u></th>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">0 sec delay</th>
+										<td>5 seconds</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">3 sec delay</th>
+										<td>5 seconds</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">1 min delay</th>
+										<td>10 seconds</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">1 hour delay</th>
+										<td>15 seconds</td>
+									</tr>
+									<tr id="">
+										<th class="theme-bg-light">24 hour delay</th>
+										<td>15 seconds</td>
 									</tr>
 								</tbody>
 							</table>
