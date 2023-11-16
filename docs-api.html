@@ -361,10 +361,13 @@
 {
 	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"12345651482d441ead8e286236123456"</span>,
+	<span class="hljs-attr">"newmerchantpaymentid"</span>: <span class="hljs-string">"eeee2451482d441ead8e28623697eeee"</span>,
 	<span class="hljs-attr">"responsecode"</span>: <span class="hljs-string">"00"</span>,
 	<span class="hljs-attr">"authorizationcode"</span>: <span class="hljs-string">"654321"</span>,
 	<span class="hljs-attr">"status"</span>: <span class="hljs-string">"approved"</span>,
 	<span class="hljs-attr">"processor"</span>: <span class="hljs-string">"finaro"</span>,
+	<span class="hljs-attr">"eci"</span>: <span class="hljs-string">"07"</span>,
+	<span class="hljs-attr">"par"</span>: <span class="hljs-string">"391c778120ca6de3a1ba8707e470b"</span>,
 }
 							</code></pre>
 						</div><!--//docs-code-block-->
@@ -390,6 +393,12 @@
 											<td></td>
 											<td></td>
 										</tr>
+										<tr id="">
+											<th class="theme-bg-light">newmerchantpaymentid</th>
+											<td>The merchant own reference to the new payment created on behalf of the existing payment.</td>
+											<td>GUID</td>
+											<td>^[a-zA-Z0-9]{1,32}$</td>
+										</tr>
 										<tr id="responsecode">
 											<th class="theme-bg-light">responsecode</th>
 											<td></td>
@@ -413,6 +422,19 @@
 											<td></td>
 											<td></td>
 											<td></td>
+										</tr>
+										<tr id="">
+											<th class="theme-bg-light">eci</th>
+											<td>The ECI level used in the authorizationi towards the processor</td>
+											<td>Number</td>
+											<td>^(\d{1,2})?$</td>
+										</tr>
+										<tr id="">
+											<th class="theme-bg-light">par</th>
+											<td>Payment Account Reference (PAR) is a non-financial reference value assigned to each
+												unique PAN to link a Payment Account represented by PAN and its affiliated Tokens</td>
+											<td>String</td>
+											<td>^[a-zA-Z0-9]{29}$</td>
 										</tr>
 								</tbody>
 							</table>
@@ -850,7 +872,7 @@
 									</tr>
 									<tr id="">
 									    <th class="theme-bg-light">operationid</th>
-									    <td>If a specific operation from the list of operations to be returned. If no value defined all operations are returned.</td>
+									    <td>If a specific operation from the list of operations to be returned. If no value defined all operations are returned. Notice that all the payment data is still available in the response.</td>
 										<td>Int</td>
 										<td>^(0|1)?$</td>
 									</tr>
@@ -892,6 +914,7 @@
 	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
 	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"parentpaymentid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
 	<span class="hljs-attr">"responseid"</span>: <span class="hljs-string">"1f4e2451482d441ead8e2862369727d1"</span>,
 	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">1095</span>,
 	<span class="hljs-attr">"balance"</span>: <span class="hljs-number">0</span>,
@@ -991,6 +1014,12 @@
 										<td></td>
 										<td></td>
 										<td></td>
+									</tr>
+									<tr id="parentpaymentid">
+										<th class="theme-bg-light">parentpaymentid</th>
+										<td>For subsequent payment (CIT or MIT) this is the reference to the original parent paymentid.</td>
+										<td>GUID</td>
+										<td>^[a-zA-Z0-9]{1,32}$</td>
 									</tr>
 									<tr id="responseid">
 									    <th class="theme-bg-light">responseid</th>
