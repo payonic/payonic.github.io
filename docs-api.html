@@ -137,18 +137,18 @@
 						<h4>Functions</h4>
 						<p>Below is as list of the functions available for the Payonic API.</p>
 						<ul>
-							<li>MIT authorization. A payment made on behalf of stored payment details (incremental authorization, scheduled payment, unscheduled payment)</li>
-							<li>Void. To cancel an uncaptured payment.</li>
-							<li>Capture. To capture a new created payment.</li>
-							<li>Refund. To make refunds of existing captured payments.</li>
-							<li>Payout. To make payouts to customers. (e.g. gambling).</li>
-							<li>Health. Get healt data from the Payonic API's.</li>
-							<li>Payment. Get details about a payment.</li>
-							<li>Life cycle management. Get notified upon updates from the card issuer.</li>
+							<li>MIT authorization. A payment made on behalf of stored payment details (incremental authorization, scheduled payment, unscheduled payment).<br>Response is async via notification.</li>
+							<li>Void. To cancel an uncaptured payment. <br>Response is async via notification.</li>
+							<li>Capture. To capture a new created payment. <br>Response is async via notification.</li>
+							<li>Refund. To make refunds of existing captured payments. <br>Response is async via notification.</li>
+							<li>Payout. To make payouts to customers. (e.g. gambling). <br>Notice that the response for this API call is sync meaning the response is returned directly on the requesting socket.</li>
+							<li>Health. Get healt data from the Payonic API's. The response is sync meaning the response is returned directly on the requesting socket.</li>
+							<li>Payment. Get details about a payment. <br>Response is async via notification.</li>
+							<li>Life cycle management. Get notified upon updates from the card issuer. <br>Response is async via notification as this is initiated by card issuer.</li>
 						</ul>
 						
 						<h3 id="item-3-2">Flow</h3>
-						<p>The Payonic API is designed to process huge amount of payment operations. Therefore, All API flows are processed in the same asynchronously way. This voids lack of performance issues and bottle-necks in the flow. The illustration below shows how data from merchant to Payonic and back again flows.</p>
+						<p>The Payonic API is designed to process huge amount of payment operations. Therefore, All API flows are processed in the same asynchronously way. This voids lack of performance issues and bottle-necks in the flow. The illustration below shows how data from merchant to Payonic and back again flows. This </p>
 						<img src="assets/images/payonic-api-flow.png" style="max-height: 500px;" />
 						<div class="table-responsive my-4">
 							<table class="table table-bordered">

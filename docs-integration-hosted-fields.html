@@ -147,6 +147,10 @@
 									    <th class="theme-bg-light">merchantid</th>
 									    <td>This is the unique identifier of the merchant to accept the payment.</td>
 									</tr>
+									<tr id="">
+										<th class="theme-bg-light">merchantpaymentid</th>
+										<td>The merchant own reference to the existing stored Payonic payment data. If this value is used, the unique value can be used instead of paymentid in the subsequent API calls (capture, refund, void etc.).</td>
+									</tr>
 									<tr>
 									      <th class="theme-bg-light">amount</th>
 									      <td>
@@ -268,6 +272,7 @@
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
 	<span class="hljs-attr">"merchantid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"merchantpaymentid"</span>: <span class="hljs-string">"AAFF2451482d441ead8e28623697BB22"</span>,
 	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"168c4ef2f6d046029d72fd318d844f55"</span>,
 	<span class="hljs-attr">"amount"</span>: <span class="hljs-number">10</span>,
 	<span class="hljs-attr">"currency"</span>: <span class="hljs-string">"DKK"</span>,
@@ -545,8 +550,8 @@
 						</div>
 
 						<p>
-							The notification expects that the receiving system replice by standard HTTP 200 as ok. Otherwise the notification will be retried once every hour up to 24 times.
-							That means the system tries to perform a notification immidiately. If this fails the system will retry 3 times with 3 second delay. Upon failure the system will retry 3 times with one hour delay. Finally the system will try to deliver the notification one time after 24 hours which is the final try.
+							The notification expects that the receiving system replies by standard HTTP 200 as ok. Otherwise the notification will be retried once every hour up to 24 times.
+							That means the system tries to perform a notification immediately. If this fails the system will retry 3 times with 3 second delay. Upon failure the system will retry 3 times with one hour delay. Finally the system will try to deliver the notification one time after 24 hours which is the final try.
 						</p>
 						<p><img src="assets/images/payonic-notification-flow.png" style="max-width: 90%" /></p>
 						<p>Timeout for each notification is defined by the table below.</p>
