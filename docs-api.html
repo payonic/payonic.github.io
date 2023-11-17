@@ -40,7 +40,7 @@
 			setRow("responsecode", "The response code from the processor according to ISO 8583.", "Int", "^\d{2,3}$");
 			setRow("authorizationcode", "The authorization code is dynamically generated for each transaction and is a series of numbers. While it's common for authorization codes to be around 6 digits long, the specific format and length can vary depending on the payment system, the card network (like Visa, MasterCard, etc.), and the processor being used.", "Int", "^[0-9]{1,8}$");
 			setRow("status", "Status if the payment was approved or declined.", "String", "^(approved|declined)$");
-			setRow("paymenttype", "This is the type of payment. The value can be <i>straight</i>, <i>incremental</i>, <i>scheduled</i> or <i>unscheduled</i>.", "String", "^(straight|incremental|scheduled|unscheduled)$");
+			setRow("paymenttype", "This is the type of payment. The value can be <i>straight</i>, <i>incremental</i>, <i>scheduled</i> or <i>unscheduled</i>.", "String", "^(straight|incremental|scheduled|unscheduled|cardvalidation|installment)$");
 			setRow("paymentid", "This is the unique identifier of the existing stored payment data used to make the payment.", "GUID", "^[a-zA-Z0-9]{1,32}$");
 			setRow("merchantpaymentid", "The merchant own reference to the existing stored Payonic payment data. If this is used <i>paymentid</i> is ignored.", "GUID", "^[a-zA-Z0-9]{1,32}$");
 			setRow("amount", "The amount of the payment in minor units. E.g. DKK 10,95 becomes 1095.", "int", "^[Z0-9]{1,12}$");
