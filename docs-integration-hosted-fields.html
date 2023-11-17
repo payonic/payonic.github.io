@@ -474,6 +474,81 @@
 							</table>
 						</div>
 
+						<h4>Payload</h4>
+						<p>This section describes examples of the payload, which is transmitted as object to the javascript event function.</p>
+						<h5>jsinitsuccess</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+}
+							</code></pre>
+						</div>
+						<h5>jspaymentsuccess</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+}
+							</code></pre>
+						</div>
+						<h5>jspaymentstarted</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+}
+							</code></pre>
+						</div>
+						<h5>jspaymentfailed</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+}
+							</code></pre>
+						</div>
+						<h5>jspaymenttimeout</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+}
+							</code></pre>
+						</div>
+						<h5>jschallengestarted</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+}
+							</code></pre>
+						</div>
+						<h5>jschallengecompleted</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+}
+							</code></pre>
+						</div>
+						<h5>jschallengeaborted</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">
+{
+	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
+	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+}
+							</code></pre>
+						</div>
+
 						<p style="color: red">Notice - we would like to have some more feedback regarding javascript event types</p>
 						<br><br>
 
