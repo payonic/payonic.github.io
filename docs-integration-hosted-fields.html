@@ -435,6 +435,7 @@
 						</p>
 
 						<h3 id="item-3-5">JavaScript events</h3>
+						<p>The javascript functions below can be set to receive notifications from the hosted fields with in formation of the current user state.</p>
 						<div class="table-responsive my-4">
 							<table class="table table-bordered">
 								<tbody>
@@ -475,7 +476,58 @@
 						</div>
 
 						<h4>Payload</h4>
-						<p>This section describes examples of the payload, which is transmitted as object to the javascript event function.</p>
+						<p>This section describes examples of the payload, which is transmitted as object to the javascript event function. Each javascript function takes in one parameter, which is an object of data. The javascript function can be implemented like this:</p>
+						<p>
+							<blockquote>
+								<pre>
+								  	<code>
+	&lt;script&gt;
+		function jspaymentfailed(obj) {
+			console.log(obj.sessionid);
+			console.log(obj.paymentid);
+			console.log(obj.errorcode);
+			console.log(obj.errortext);
+		}
+	&lt;/script&gt;
+								  	</code>
+								</pre>
+							</blockquote>
+						</p>
+						<p>As payload following attributes on the obj parameter is defined:</p>
+						<div class="table-responsive my-4">
+							<table class="table table-bordered">
+								<tbody>
+								    <tr>
+									    <th class="theme-bg-light">sessionid</th>
+									    <td>This is the sessionid received when initializing the payment session.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">paymentid</th>
+									    <td>If a payment is created the paymentid will be returned as this value.</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">errorcode</th>
+									    <td>
+											This is the platform errorcode of an error defined:
+											<ul>
+												<li>PAN_MISSING</li>
+												<li>EXPMONTH_MISSING</li>
+												<li>EXPYEAR_MISSING</li>
+												<li>CVC_MISSING</li>
+												<li>PAYMENT_TIMEOUT</li>
+											</ul>
+
+										</td>
+									</tr>
+									<tr>
+									    <th class="theme-bg-light">errortext</th>
+									    <td>If an error has occured the platform willk in english define more specific description of the error.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
 						<h5>jsinitsuccess</h5>
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
@@ -509,6 +561,8 @@
 {
 	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
 	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
+	<span class="hljs-attr">"errorcode"</span>: <span class="hljs-string">"PAN_MISSING"</span>,
+	<span class="hljs-attr">"errortext"</span>: <span class="hljs-string">"The PAN is missing in the request"</span>,
 }
 							</code></pre>
 						</div>
@@ -517,7 +571,6 @@
 							<pre class="shadow-lg rounded"><code class="json hljs">
 {
 	<span class="hljs-attr">"sessionid"</span>: <span class="hljs-string">"4f4e2451482d441ead8e2862369727d0"</span>,
-	<span class="hljs-attr">"paymentid"</span>: <span class="hljs-string">"BEFF2451482d441ead8e286236971234"</span>,
 }
 							</code></pre>
 						</div>
