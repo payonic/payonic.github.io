@@ -104,7 +104,7 @@
 						</div><!--//docs-code-block-->
 
 						<h4>Trace header</h4>
-						<p>To trace each API request a simple header can be added to each individual request. The header is named TraceApi and must be set to an unique value (GUID). When both client and server stores this unique reference quick debugging is enabled. </p>
+						<p>To trace each API request a simple header can be added to each individual request. The header is named TraceApi and must be set to an unique value (UUID). When both client and server stores this unique reference quick debugging is enabled. </p>
 						<p>Below is an example of how this header is set using cURL:</p>
 						<div class="docs-code-block">
 							<pre class="shadow-lg rounded"><code class="json hljs">
@@ -651,25 +651,25 @@
 									<tr id="">
 										<th class="theme-bg-light">sessionid</th>
 										<td>The sessionid</td>
-										<td>GUID</td>
+										<td>UUID</td>
 										<td>^[a-zA-Z0-9]{1,32}$</td>
 									</tr>
 									<tr id="">
 										<th class="theme-bg-light">paymentid</th>
 										<td>The payment</td>
-										<td>GUID</td>
+										<td>UUID</td>
 										<td>^[a-zA-Z0-9]{1,32}$</td>
 									</tr>
 									<tr id="">
 										<th class="theme-bg-light">merchantpaymentid</th>
 										<td>The merchant own reference to the existing stored Payonic payment data.</td>
-										<td>GUID</td>
+										<td>UUID</td>
 										<td>^[a-zA-Z0-9]{1,32}$</td>
 									</tr>
 									<tr id="">
 										<th class="theme-bg-light">newmerchantpaymentid</th>
 										<td>The merchant own reference to the new payment created on behalf of the existing payment.</td>
-										<td>GUID</td>
+										<td>UUID</td>
 										<td>^[a-zA-Z0-9]{1,32}$</td>
 									</tr>
 									<tr id="">
